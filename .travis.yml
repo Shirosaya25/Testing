@@ -2,4 +2,3 @@ language: java
 
 script:
   - mvn sonar:sonar -Dsonar.projectKey=Testing -Dsonar.organization=Shirosaya25-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
-© 2019 GitHub, Inc.
