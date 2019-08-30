@@ -1,4 +1,4 @@
 language: java
 
 script:
-  - mvn sonar:sonar -Dsonar.projectKey=Testing -Dsonar.organization=Shirosaya25 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
+  - mvn sonar:sonar -Dsonar.projectKey=Testing -Dsonar.organization=shirosaya25 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
