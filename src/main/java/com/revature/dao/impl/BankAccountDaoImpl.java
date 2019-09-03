@@ -28,26 +28,29 @@ public class BankAccountDaoImpl implements BankAccountDao {
 		
 		BankAccount returnAccount = null;
 		
-		try {
+		
+		try (PreparedStatement statement = conn.prepareStatement(sqltemplate)){
 			
-			PreparedStatement statement = conn.prepareStatement(sqltemplate);
 			statement.setInt(1, id);
 			
-			ResultSet results = statement.executeQuery();
+			try(ResultSet results = statement.executeQuery()){;
 			
-			while(results.next()) {
+				while(results.next()) {
+					
+					int accountId = results.getInt(COLUMN_1);
+					int accountType = results.getInt(COLUMN_2);
+					double accountBalance = results.getDouble(COLUMN_3);
+					
+					returnAccount = new BankAccount(accountId, accountType, accountBalance);
+				}
 				
-				int accountId = results.getInt(COLUMN_1);
-				int accountType = results.getInt(COLUMN_2);
-				double accountBalance = results.getDouble(COLUMN_3);
-				
-				returnAccount = new BankAccount(accountId, accountType, accountBalance);
+				conn.close();
 			}
 			
-			conn.close();
-			statement.close();
-			results.close();
-			
+			catch (SQLException e) {
+				
+				LoggerUtil.log.warn(e.getMessage());
+			}
 		}
 		
 		catch (SQLException e) {
