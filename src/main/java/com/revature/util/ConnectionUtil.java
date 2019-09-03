@@ -20,9 +20,9 @@ public class ConnectionUtil {
 			
 			Class.forName("org.postgresql.Driver");
 			
-			System.out.println("Connecting to DB...");
+			LoggerUtil.log.info("Connecting to DB...");
 			conn = DriverManager.getConnection(String.format("jdbc:postgresql://%s:%s/%s?user=%s&password=%s", SQL_HOST, SQL_PORT, SQL_NAME, SQL_USER, SQL_PASS));
-			System.out.println("Successfully Connected to DB.");
+			LoggerUtil.log.info("Successfully Connected to DB.");
 			
 		} 
 		

@@ -15,6 +15,11 @@ public class UserBankAccountService {
 		return dao.getBankAccountFromUserAccount(user);
 	}
 	
+	public List<String> getUserAccountFromBankAccount(BankAccount bank){
+		
+		return dao.getUserAccountFromBankAccount(bank);
+	}
+	
 	public boolean createNewUserBankLink(UserAccount user, BankAccount bank) {
 		
 		return dao.createUserBankAccount(user, bank);

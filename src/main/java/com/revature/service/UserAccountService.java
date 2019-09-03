@@ -7,6 +7,7 @@ import com.revature.dao.UserAccountDao;
 import com.revature.dao.impl.UserAccountDaoImpl;
 import com.revature.models.BankAccount;
 import com.revature.models.UserAccount;
+import com.revature.util.LoggerUtil;
 import com.revature.util.StringUtil;
 
 public class UserAccountService {
@@ -30,13 +31,13 @@ public class UserAccountService {
 		
 		else {
 			
-			System.out.println("Log In Failed: Invalid username or email.");
+			LoggerUtil.log.warn("Log In Failed: Invalid username or email.");
 			return null;
 		}
 		
 		if(returnUser == null) {
 			
-			System.out.println("Log In Failed: No user found with that username or email.");
+			LoggerUtil.log.warn("Log In Failed: No user found with that username or email.");
 			return null;
 		}
 		
@@ -44,13 +45,13 @@ public class UserAccountService {
 		
 		if(returnUser.isLoggedIn()) {
 			
-			System.out.println("Successfully Logged In.");
+			LoggerUtil.log.info("Successfully Logged In.");
 			return returnUser;
 		}
 		
 		else {
 			
-			System.out.println("Log In Failed: Incorrect Password.");
+			LoggerUtil.log.warn("Log In Failed: Incorrect Password.");
 			return null;
 		}
 	}
@@ -64,7 +65,7 @@ public class UserAccountService {
 		
 		if(!user.isLoggedIn()) {
 			
-			System.out.println("Bank Account Creation Failed: No valid login.");
+			LoggerUtil.log.warn("Bank Account Creation Failed: No valid login.");
 			return false;
 		}
 		
@@ -82,7 +83,7 @@ public class UserAccountService {
 		
 		if(!user.isLoggedIn()) {
 			
-			System.out.println("Bank Account Retrieval Failed: No valid login.");
+			LoggerUtil.log.warn("Bank Account Retrieval Failed: No valid login.");
 			return null;
 		}
 		
@@ -100,6 +101,7 @@ public class UserAccountService {
 		
 	}
 	
+	
 	public UserAccount getUserAccountByUsername(String username) {
 		
 		return dao.getUserAccountByUsername(username);
@@ -108,6 +110,16 @@ public class UserAccountService {
 	public UserAccount getUserAccountByEmail(String email) {
 		
 		return dao.getUserAccountByEmail(email);
+	}
+	
+	public boolean existingUsername(String username) {
+		
+		return !(getUserAccountByUsername(username.toLowerCase()) == null);
+	}
+	
+	public boolean existingEmail(String email) {
+		
+		return !(getUserAccountByUsername(email.toLowerCase()) == null);
 	}
 	
 	public boolean createUserAccount(UserAccount user) {
@@ -124,7 +136,7 @@ public class UserAccountService {
 		
 		if(!user.isLoggedIn()) {
 			
-			System.out.println("Delete User Failed: No valid login");
+			LoggerUtil.log.warn("Delete User Failed: No valid login");
 			return false;
 		}
 		

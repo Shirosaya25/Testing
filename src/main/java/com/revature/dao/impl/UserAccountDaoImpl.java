@@ -11,6 +11,7 @@ import java.util.List;
 import com.revature.dao.UserAccountDao;
 import com.revature.models.UserAccount;
 import com.revature.util.ConnectionUtil;
+import com.revature.util.LoggerUtil;
 
 public class UserAccountDaoImpl implements UserAccountDao{
 	
@@ -164,9 +165,9 @@ public class UserAccountDaoImpl implements UserAccountDao{
 			
 			String emsg = e.getMessage().split("\n")[0];
 			
-			if(emsg.equals(USERNAME_VIOLATION)) 	System.out.println("Insert Failed: Username already taken.");
+			if(emsg.equals(USERNAME_VIOLATION)) 	LoggerUtil.log.warn("Insert Failed: Username already taken.");
 
-			else if(emsg.equals(EMAIL_VIOLATION)) 	System.out.println("Insert Failed: Email already taken.");
+			else if(emsg.equals(EMAIL_VIOLATION)) 	LoggerUtil.log.warn("Insert Failed: Email already taken.");
 		}
 		
 		return updated == 1;
@@ -207,9 +208,9 @@ public class UserAccountDaoImpl implements UserAccountDao{
 			
 			String emsg = e.getMessage().split("\n")[0];
 			
-			if(emsg.equals(USERNAME_VIOLATION)) 	System.out.println("Insert Failed: Username already taken.");
+			if(emsg.equals(USERNAME_VIOLATION)) 	LoggerUtil.log.warn("Insert Failed: Username already taken.");
 
-			else if(emsg.equals(EMAIL_VIOLATION)) 	System.out.println("Insert Failed: Email already taken.");
+			else if(emsg.equals(EMAIL_VIOLATION)) 	LoggerUtil.log.info("Insert Failed: Email already taken.");
 		}
 		
 		return updated == 1;

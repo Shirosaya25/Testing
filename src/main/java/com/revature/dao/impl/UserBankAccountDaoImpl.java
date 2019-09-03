@@ -21,8 +21,8 @@ public class UserBankAccountDaoImpl implements UserBankAccountDao {
 
 	public List<Integer> getBankAccountFromUserAccount(UserAccount user) {
 		
-		String sqltemplate = String.format("select \"%s\" from \"%s\" where \"%s\" = ?",
-											COLUMN_2, TABLE_NAME, COLUMN_1);
+		String sqltemplate = String.format("select \"%s\" from \"%s\" where \"%s\" = ? order by \"%s\"",
+											COLUMN_2, TABLE_NAME, COLUMN_1, COLUMN_2);
 		
 		List<Integer> accountIdList = new ArrayList<Integer>();
 		
@@ -52,8 +52,35 @@ public class UserBankAccountDaoImpl implements UserBankAccountDao {
 	}
 
 	public List<String> getUserAccountFromBankAccount(BankAccount bank) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		String sqltemplate = String.format("select \"%s\" from \"%s\" where \"%s\" = ?",
+				COLUMN_1, TABLE_NAME, COLUMN_2);
+
+		List<String> usernameList = new ArrayList<String>();
+		
+		Connection conn = ConnectionUtil.getConnection();
+		
+		try {
+			
+			PreparedStatement statement = conn.prepareStatement(sqltemplate);
+			statement.setInt(1, bank.getAccountId());
+			
+			ResultSet results = statement.executeQuery();
+			
+			while(results.next()) {
+			
+				usernameList.add(results.getString(COLUMN_1));
+			}
+			
+			conn.close();
+		} 
+		
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return usernameList;
 	}
 
 	public boolean createUserBankAccount(UserAccount user, BankAccount bank) {

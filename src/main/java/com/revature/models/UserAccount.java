@@ -1,6 +1,8 @@
 package com.revature.models;
 
 import java.io.Serializable;
+
+import com.revature.util.LoggerUtil;
 import com.revature.util.StringUtil;
 
 public class UserAccount implements Serializable{
@@ -46,12 +48,12 @@ public class UserAccount implements Serializable{
 		
 		if(!this.loggedin) {
 			
-			System.out.println("Log Out Failed: No user currently logged in.");
+			LoggerUtil.log.warn("Log Out Failed: No user currently logged in.");
 			return false;
 		}
 		
 		this.clean();
-		System.out.println("Successfully logged out.");
+		LoggerUtil.log.info("Successfully logged out.");
 		return true;
 	}
 	
@@ -71,7 +73,7 @@ public class UserAccount implements Serializable{
 			return true;
 		}
 		
-		System.out.println("Username Change Failed: Invalid Username");
+		LoggerUtil.log.warn("Username Change Failed: Invalid Username");
 		return false;
 	}
 	
@@ -83,7 +85,7 @@ public class UserAccount implements Serializable{
 			return true;
 		}
 		
-		System.out.println("Password Change Failed: No Valid Login");
+		LoggerUtil.log.warn("Password Change Failed: No Valid Login");
 		return false;
 	}
 	
@@ -107,7 +109,7 @@ public class UserAccount implements Serializable{
 			return true;
 		}
 		
-		System.out.println("Email Change Failed: Invalid Email.");
+		LoggerUtil.log.warn("Email Change Failed: Invalid Email.");
 		return false;
 	}
 	

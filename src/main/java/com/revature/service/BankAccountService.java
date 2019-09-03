@@ -23,4 +23,8 @@ public class BankAccountService {
 		return dao.getNextAccountId();
 	}
 
+	public boolean updateBankAccount(BankAccount bank) {
+		
+		return dao.updateBankAccount(bank);
+	}
 }
