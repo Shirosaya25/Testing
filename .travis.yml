@@ -1,0 +1,4 @@
+language: java
+
+script:
+  - mvn sonar:sonar -Dsonar.projectKey=Shirosaya25_Testing -Dsonar.organization=shirosaya25 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
