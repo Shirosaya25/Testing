@@ -36,21 +36,21 @@ public class UserAccountDaoImpl implements UserAccountDao{
 		
 		try(Statement statement = conn.createStatement()) {
 
-			ResultSet results 	= statement.executeQuery(sqltemplate);
+			try(ResultSet results 	= statement.executeQuery(sqltemplate)){
 			
-			while(results.next()) {
+				while(results.next()) {
+					
+					String username 	= results.getString(COLUMN_1);
+					String password 	= results.getString(COLUMN_2);
+					String firstname 	= results.getString(COLUMN_3);
+					String lastname 	= results.getString(COLUMN_4);
+					String email 		= results.getString(COLUMN_5);
+					
+					useraccounts.add(new UserAccount(username, password, firstname, lastname, email));
+				}
 				
-				String username 	= results.getString(COLUMN_1);
-				String password 	= results.getString(COLUMN_2);
-				String firstname 	= results.getString(COLUMN_3);
-				String lastname 	= results.getString(COLUMN_4);
-				String email 		= results.getString(COLUMN_5);
-				
-				useraccounts.add(new UserAccount(username, password, firstname, lastname, email));
+				conn.close();
 			}
-			
-			conn.close();
-			
 		}
 		
 		catch (SQLException e) {
@@ -72,20 +72,22 @@ public class UserAccountDaoImpl implements UserAccountDao{
 		try(PreparedStatement statement = conn.prepareStatement(sqltemplate)) {
 			
 			statement.setString(1,  username_input);
-			ResultSet results 	= statement.executeQuery();
 			
-			while(results.next()) {
+			try(ResultSet results 	= statement.executeQuery()){
+			
+				while(results.next()) {
+					
+					String username 	= results.getString(COLUMN_1);
+					String password 	= results.getString(COLUMN_2);
+					String firstname 	= results.getString(COLUMN_3);
+					String lastname 	= results.getString(COLUMN_4);
+					String email 		= results.getString(COLUMN_5);
+					
+					useraccount = new UserAccount(username, password, firstname, lastname, email);
+				}
 				
-				String username 	= results.getString(COLUMN_1);
-				String password 	= results.getString(COLUMN_2);
-				String firstname 	= results.getString(COLUMN_3);
-				String lastname 	= results.getString(COLUMN_4);
-				String email 		= results.getString(COLUMN_5);
-				
-				useraccount = new UserAccount(username, password, firstname, lastname, email);
+				conn.close();
 			}
-			
-			conn.close();
 		}
 		
 		catch (SQLException e) {
@@ -107,20 +109,22 @@ public class UserAccountDaoImpl implements UserAccountDao{
 		try(PreparedStatement statement = conn.prepareStatement(sqltemplate)) {
 			
 			statement.setString(1,  email_input);
-			ResultSet results 	= statement.executeQuery();
 			
-			while(results.next()) {
+			try(ResultSet results 	= statement.executeQuery()){
+			
+				while(results.next()) {
+					
+					String username 	= results.getString(COLUMN_1);
+					String password 	= results.getString(COLUMN_2);
+					String firstname 	= results.getString(COLUMN_3);
+					String lastname 	= results.getString(COLUMN_4);
+					String email 		= results.getString(COLUMN_5);
+					
+					useraccount = new UserAccount(username, password, firstname, lastname, email);
+				}
 				
-				String username 	= results.getString(COLUMN_1);
-				String password 	= results.getString(COLUMN_2);
-				String firstname 	= results.getString(COLUMN_3);
-				String lastname 	= results.getString(COLUMN_4);
-				String email 		= results.getString(COLUMN_5);
-				
-				useraccount = new UserAccount(username, password, firstname, lastname, email);
+				conn.close();
 			}
-			
-			conn.close();
 		}
 		
 		catch (SQLException e) {
@@ -157,6 +161,8 @@ public class UserAccountDaoImpl implements UserAccountDao{
 			e.printStackTrace();
 			
 			String emsg = e.getMessage().split("\n")[0];
+			
+			LoggerUtil.log.warn(e.getMessage());
 			
 			if(emsg.equals(USERNAME_VIOLATION)) 	LoggerUtil.log.warn("Insert Failed: Username already taken.");
 
@@ -198,6 +204,8 @@ public class UserAccountDaoImpl implements UserAccountDao{
 			e.printStackTrace();
 			
 			String emsg = e.getMessage().split("\n")[0];
+			
+			LoggerUtil.log.warn(e.getMessage());
 			
 			if(emsg.equals(USERNAME_VIOLATION)) 	LoggerUtil.log.warn("Insert Failed: Username already taken.");
 

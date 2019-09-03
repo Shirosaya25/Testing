@@ -33,14 +33,15 @@ public class UserBankAccountDaoImpl implements UserBankAccountDao {
 			
 			statement.setString(1, user.getUsername());
 			
-			ResultSet results = statement.executeQuery();
+			try(ResultSet results = statement.executeQuery()){
 			
-			while(results.next()) {
+				while(results.next()) {
+					
+					accountIdList.add(results.getInt(COLUMN_2));
+				}
 				
-				accountIdList.add(results.getInt(COLUMN_2));
+				conn.close();
 			}
-			
-			conn.close();
 		} 
 		
 		catch (SQLException e) {
@@ -64,14 +65,15 @@ public class UserBankAccountDaoImpl implements UserBankAccountDao {
 			
 			statement.setInt(1, bank.getAccountId());
 			
-			ResultSet results = statement.executeQuery();
+			try(ResultSet results = statement.executeQuery()){
 			
-			while(results.next()) {
-			
-				usernameList.add(results.getString(COLUMN_1));
+				while(results.next()) {
+				
+					usernameList.add(results.getString(COLUMN_1));
+				}
+				
+				conn.close();
 			}
-			
-			conn.close();
 		} 
 		
 		catch (SQLException e) {

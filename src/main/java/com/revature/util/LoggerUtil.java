@@ -6,6 +6,6 @@ import com.revature.Driver;
 
 public class LoggerUtil {
 
-	public static Logger log = Logger.getLogger(Driver.class.getName());
+	public static final Logger log = Logger.getLogger(Driver.class.getName());
 	
 }
