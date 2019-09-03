@@ -6,11 +6,15 @@ import java.sql.SQLException;
 
 public class ConnectionUtil {
 	
-	private final static String SQL_HOST = System.getenv("JDBC_URL");
-	private final static String SQL_PORT = System.getenv("JDBC_PORT");
-	private final static String SQL_NAME = System.getenv("JDBC_NAME");
-	private final static String SQL_USER = System.getenv("JDBC_USER");
-	private final static String SQL_PASS = System.getenv("JDBC_PASS");
+	private static final String SQL_HOST = System.getenv("JDBC_URL");
+	private static final String SQL_PORT = System.getenv("JDBC_PORT");
+	private static final String SQL_NAME = System.getenv("JDBC_NAME");
+	private static final String SQL_USER = System.getenv("JDBC_USER");
+	private static final String SQL_PASS = System.getenv("JDBC_PASS");
+	
+	private ConnectionUtil() {
+		throw new IllegalStateException("Utility Class.");
+	}
 
 	public static Connection getConnection() {
 		
@@ -28,13 +32,13 @@ public class ConnectionUtil {
 		
 		catch (SQLException e) {
 			
-			e.printStackTrace();
+			LoggerUtil.log.warn(e.getMessage());
 			return null;
 		}
 		
 		catch (ClassNotFoundException e) {
 
-			e.printStackTrace();
+			LoggerUtil.log.warn(e.getMessage());
 			return null;
 		}
 		

@@ -77,7 +77,6 @@ public class BankAccountDaoImpl implements BankAccountDao {
 			ret += statement.getInt(1);
 			
 			conn.close();
-			statement.close();
 		}
 		
 		catch (SQLException e) {
@@ -106,7 +105,6 @@ public class BankAccountDaoImpl implements BankAccountDao {
 			updated += statement.executeUpdate();
 			
 			conn.close();
-			statement.close();
 		}
 		
 		catch (SQLException e) {
@@ -138,7 +136,6 @@ public class BankAccountDaoImpl implements BankAccountDao {
 			updated += statement.executeUpdate();
 			
 			conn.close();
-			statement.close();
 			
 		}
 		
@@ -165,7 +162,6 @@ public class BankAccountDaoImpl implements BankAccountDao {
 			updated += statement.executeUpdate();
 			
 			conn.close();
-			statement.close();
 		}
 		
 		catch(SQLException e) {
