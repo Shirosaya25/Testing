@@ -33,7 +33,7 @@ public class BankAccountDaoImpl implements BankAccountDao {
 			
 			statement.setInt(1, id);
 			
-			try(ResultSet results = statement.executeQuery()){;
+			try(ResultSet results = statement.executeQuery()){
 			
 				while(results.next()) {
 					
@@ -69,9 +69,8 @@ public class BankAccountDaoImpl implements BankAccountDao {
 		
 		Connection conn = ConnectionUtil.getConnection();
 		
-		try {
+		try(CallableStatement statement = conn.prepareCall(sqltemplate)) {
 			
-			CallableStatement statement = conn.prepareCall(sqltemplate);
 			statement.registerOutParameter(1, java.sql.Types.INTEGER);
 			statement.execute();
 			
@@ -99,9 +98,8 @@ public class BankAccountDaoImpl implements BankAccountDao {
 		
 		Connection conn = ConnectionUtil.getConnection();
 		
-		try {
+		try(PreparedStatement statement = conn.prepareStatement(sqltemplate)) {
 			
-			PreparedStatement statement = conn.prepareStatement(sqltemplate);
 			statement.setInt(1, account.getAccountType());
 			statement.setDouble(2, account.getAccountBalance());
 			
@@ -131,9 +129,9 @@ public class BankAccountDaoImpl implements BankAccountDao {
 		
 		Connection conn = ConnectionUtil.getConnection();
 		
-		try {
+		try(PreparedStatement statement = conn.prepareStatement(sqltemplate)) {
 			
-			PreparedStatement statement = conn.prepareStatement(sqltemplate);
+			
 			statement.setDouble(1, account.getAccountBalance());
 			statement.setInt(2,  account.getAccountId());
 			
@@ -160,9 +158,8 @@ public class BankAccountDaoImpl implements BankAccountDao {
 		
 		Connection conn = ConnectionUtil.getConnection();
 		
-		try {
+		try(PreparedStatement statement = conn.prepareStatement(sqltemplate)) {
 			
-			PreparedStatement statement = conn.prepareStatement(sqltemplate);
 			statement.setInt(1, id);
 			
 			updated += statement.executeUpdate();

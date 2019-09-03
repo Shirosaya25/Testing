@@ -11,13 +11,14 @@ import com.revature.dao.UserBankAccountDao;
 import com.revature.models.BankAccount;
 import com.revature.models.UserAccount;
 import com.revature.util.ConnectionUtil;
+import com.revature.util.LoggerUtil;
 
 public class UserBankAccountDaoImpl implements UserBankAccountDao {
 	
-	private final static String TABLE_NAME = "UserBankAccount";
+	private static final String TABLE_NAME = "UserBankAccount";
 	
-	private final static String COLUMN_1 = "Username";
-	private final static String COLUMN_2 = "AccountId";
+	private static final String COLUMN_1 = "Username";
+	private static final String COLUMN_2 = "AccountId";
 
 	public List<Integer> getBankAccountFromUserAccount(UserAccount user) {
 		
@@ -28,9 +29,8 @@ public class UserBankAccountDaoImpl implements UserBankAccountDao {
 		
 		Connection conn = ConnectionUtil.getConnection();
 		
-		try {
+		try(PreparedStatement statement = conn.prepareStatement(sqltemplate)) {
 			
-			PreparedStatement statement = conn.prepareStatement(sqltemplate);
 			statement.setString(1, user.getUsername());
 			
 			ResultSet results = statement.executeQuery();
@@ -44,8 +44,8 @@ public class UserBankAccountDaoImpl implements UserBankAccountDao {
 		} 
 		
 		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			LoggerUtil.log.warn(e.getMessage());
 		}
 		
 		return accountIdList;
@@ -60,9 +60,8 @@ public class UserBankAccountDaoImpl implements UserBankAccountDao {
 		
 		Connection conn = ConnectionUtil.getConnection();
 		
-		try {
+		try (PreparedStatement statement = conn.prepareStatement(sqltemplate)){
 			
-			PreparedStatement statement = conn.prepareStatement(sqltemplate);
 			statement.setInt(1, bank.getAccountId());
 			
 			ResultSet results = statement.executeQuery();
@@ -76,8 +75,8 @@ public class UserBankAccountDaoImpl implements UserBankAccountDao {
 		} 
 		
 		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			LoggerUtil.log.warn(e.getMessage());
 		}
 
 		return usernameList;
@@ -93,9 +92,8 @@ public class UserBankAccountDaoImpl implements UserBankAccountDao {
 		
 		Connection conn = ConnectionUtil.getConnection();
 		
-		try {
-			
-			PreparedStatement statement = conn.prepareStatement(sqltemplate);
+		try(PreparedStatement statement = conn.prepareStatement(sqltemplate)) {
+
 			statement.setString(1, user.getUsername());
 			statement.setInt(2,  bank.getAccountId());
 			
@@ -105,22 +103,11 @@ public class UserBankAccountDaoImpl implements UserBankAccountDao {
 		}
 		
 		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			LoggerUtil.log.warn(e.getMessage());
 		}
 		
 		return updated > 0;
 		
 	}
-
-	public boolean updateUserBankAccount(UserAccount user, BankAccount bank) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public boolean removeUserBankAccount(UserAccount user, BankAccount bank) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 }

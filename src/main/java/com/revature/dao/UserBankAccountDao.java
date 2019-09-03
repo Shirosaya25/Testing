@@ -11,6 +11,4 @@ public interface UserBankAccountDao {
 	public List<String> getUserAccountFromBankAccount(BankAccount bank);
 	
 	public boolean createUserBankAccount(UserAccount user, BankAccount bank);
-	public boolean updateUserBankAccount(UserAccount user, BankAccount bank);
-	public boolean removeUserBankAccount(UserAccount user, BankAccount bank);
 }

@@ -17,14 +17,14 @@ public class UserAccountDaoImpl implements UserAccountDao{
 	
 	private static final String TABLE_NAME = "UserAccount";
 	
-	private final static String COLUMN_1 = "Username";
-	private final static String COLUMN_2 = "Password";
-	private final static String COLUMN_3 = "FirstName";
-	private final static String COLUMN_4 = "LastName";
-	private final static String COLUMN_5 = "Email";
+	private static final String COLUMN_1 = "Username";
+	private static final String COLUMN_2 = "Password";
+	private static final String COLUMN_3 = "FirstName";
+	private static final String COLUMN_4 = "LastName";
+	private static final String COLUMN_5 = "Email";
 	
-	private final static String USERNAME_VIOLATION  = "ERROR: duplicate key value violates unique constraint \"username\"";
-	private final static String EMAIL_VIOLATION 	= "ERROR: duplicate key value violates unique constraint \"email_u\"";
+	private static final String USERNAME_VIOLATION  = "ERROR: duplicate key value violates unique constraint \"username\"";
+	private static final String EMAIL_VIOLATION 	= "ERROR: duplicate key value violates unique constraint \"email_u\"";
 
 	public List<UserAccount> getUserAccounts() {
 
@@ -34,9 +34,8 @@ public class UserAccountDaoImpl implements UserAccountDao{
 		
 		List<UserAccount> useraccounts = new ArrayList<UserAccount>();
 		
-		try {
-			
-			Statement statement = conn.createStatement();
+		try(Statement statement = conn.createStatement()) {
+
 			ResultSet results 	= statement.executeQuery(sqltemplate);
 			
 			while(results.next()) {
@@ -55,8 +54,8 @@ public class UserAccountDaoImpl implements UserAccountDao{
 		}
 		
 		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			LoggerUtil.log.warn(e.getMessage());
 		}
 		
 		return useraccounts;
@@ -70,9 +69,7 @@ public class UserAccountDaoImpl implements UserAccountDao{
 		
 		UserAccount useraccount = null;
 		
-		try {
-			
-			PreparedStatement statement = conn.prepareStatement(sqltemplate);
+		try(PreparedStatement statement = conn.prepareStatement(sqltemplate)) {
 			
 			statement.setString(1,  username_input);
 			ResultSet results 	= statement.executeQuery();
@@ -92,8 +89,8 @@ public class UserAccountDaoImpl implements UserAccountDao{
 		}
 		
 		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			LoggerUtil.log.warn(e.getMessage());
 		}
 		
 		return useraccount;
@@ -107,9 +104,7 @@ public class UserAccountDaoImpl implements UserAccountDao{
 		
 		UserAccount useraccount = null;
 		
-		try {
-			
-			PreparedStatement statement = conn.prepareStatement(sqltemplate);
+		try(PreparedStatement statement = conn.prepareStatement(sqltemplate)) {
 			
 			statement.setString(1,  email_input);
 			ResultSet results 	= statement.executeQuery();
@@ -129,8 +124,8 @@ public class UserAccountDaoImpl implements UserAccountDao{
 		}
 		
 		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			LoggerUtil.log.warn(e.getMessage());
 		}
 		
 		return useraccount;
@@ -145,9 +140,7 @@ public class UserAccountDaoImpl implements UserAccountDao{
 		
 		Connection conn = ConnectionUtil.getConnection();
 		
-		try {
-			
-			PreparedStatement statement = conn.prepareStatement(sqltemplate);
+		try(PreparedStatement statement = conn.prepareStatement(sqltemplate)) {
 			
 			statement.setString(1,  user.getUsername());
 			statement.setString(2,  user.getPassword());
@@ -188,9 +181,7 @@ public class UserAccountDaoImpl implements UserAccountDao{
 		
 		Connection conn = ConnectionUtil.getConnection();
 		
-		try {
-			
-			PreparedStatement statement = conn.prepareStatement(sqltemplate);
+		try(PreparedStatement statement = conn.prepareStatement(sqltemplate)) {
 			
 			statement.setString(1,  user.getPassword());
 			statement.setString(2,  user.getFirstname());
@@ -225,9 +216,7 @@ public class UserAccountDaoImpl implements UserAccountDao{
 		
 		Connection conn = ConnectionUtil.getConnection();
 		
-		try {
-			
-			PreparedStatement statement = conn.prepareStatement(sqltemplate);
+		try (PreparedStatement statement = conn.prepareStatement(sqltemplate)){
 			
 			statement.setString(1, username);
 			
@@ -237,7 +226,7 @@ public class UserAccountDaoImpl implements UserAccountDao{
 		
 		catch(SQLException e) {
 			
-			e.printStackTrace();
+			LoggerUtil.log.warn(e.getMessage());
 		}
 		
 		return updated == 1;
