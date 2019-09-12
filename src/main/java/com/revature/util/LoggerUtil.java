@@ -8,4 +8,8 @@ public class LoggerUtil {
 
 	public static final Logger log = Logger.getLogger(Driver.class.getName());
 	
+	private LoggerUtil() {
+		
+		throw new IllegalStateException("Utility Class");
+	}
 }
