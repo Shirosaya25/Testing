@@ -165,10 +165,6 @@ function applyRequestTable(list){
 
     let table = document.getElementById("request-table-body");
     let row;
-    let atag;
-    let ptag;
-
-    let temp
 
     for(let e of obj){
 
@@ -184,7 +180,7 @@ function applyRequestTable(list){
         row.insertCell(6).appendChild(document.createTextNode(e.resolutionDate || ""));
         row.insertCell(7).appendChild(document.createTextNode(e.resolvedBy || ""));
         
-        atag = document.createElement('a');
+        let atag = document.createElement('a');
         atag.setAttribute('href', "#");
         atag.setAttribute('class', 'landing-anchor-glyph');
         atag.setAttribute('data-toggle', 'modal');
@@ -223,7 +219,7 @@ function applyRequestTableWithParam(list, status){
         row.insertCell(6).appendChild(document.createTextNode(e.resolutionDate || ""));
         row.insertCell(7).appendChild(document.createTextNode(e.resolvedBy || ""));
 
-        atag = document.createElement('a');
+        let atag = document.createElement('a');
         atag.setAttribute('href', "#2");
         atag.setAttribute('class', 'landing-anchor-glyph');
         atag.setAttribute('data-toggle', 'modal');

@@ -2,7 +2,6 @@ package com.revature.deligates;
 
 import java.io.IOException;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.model.Employee;
 import com.revature.service.EmployeeService;
 import com.revature.util.EncryptionUtil;
+import com.revature.util.LoggerUtil;
 import com.revature.util.StringUtil;
 
 public class LoginDeligate {
@@ -17,7 +17,7 @@ public class LoginDeligate {
 	private EmployeeService eservice = new EmployeeService();
 	private ObjectMapper om = new ObjectMapper();
 	
-	public void login(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	public void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		String username = request.getHeader("username");
 		String password = request.getHeader("password");
@@ -31,7 +31,7 @@ public class LoginDeligate {
 		}
 		
 		String rawToken = StringUtil.getRandomString() + "." + StringUtil.getRandomString() + "." + StringUtil.getRandomString();
-		System.out.println(rawToken);
+		LoggerUtil.log.info(rawToken);
 		
 		response.setHeader("Login", "Success");
 		response.setHeader("User", om.writeValueAsString(user));

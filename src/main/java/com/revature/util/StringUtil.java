@@ -1,6 +1,7 @@
 package com.revature.util;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
 public class StringUtil {
@@ -45,6 +46,6 @@ public class StringUtil {
 		byte[] array = new byte[8];
 		new Random().nextBytes(array);
 		
-		return new String(array, Charset.forName("UTF-8"));
+		return new String(array,StandardCharsets.UTF_8);
 	}
 }

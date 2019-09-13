@@ -1,11 +1,26 @@
 package com.revature.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 
 import com.revature.util.StringUtil;
 
 public class Request {
+	
+	private static final String COLUMN_1 = "RequestId";
+	private static final String COLUMN_2 = "Applicant";
+	private static final String COLUMN_3 = "Status";
+	private static final String COLUMN_4 = "TicketLevel";
+	private static final String COLUMN_5 = "Amount";
+	private static final String COLUMN_6 = "Description";
+	private static final String COLUMN_7 = "Reference";
+	private static final String COLUMN_8 = "SubmissionDate";
+	private static final String COLUMN_9 = "ResolutionDate";
+	private static final String COLUMN_10 = "ResolvedBy";
+	private static final String COLUMN_11 = "ResolutionDescription";
+	private static final String COLUMN_12 = "Approved";
 
 	private int requestId;
 	private String applicant;
@@ -38,20 +53,20 @@ public class Request {
 		this.setSubmissionDate();
 	}
 	
-	public Request(int requestId, String applicant, int status, int ticketLevel, double amount, String description, String reference, Timestamp submissionDate, Timestamp resolutionDate, String resolvedBy, String resolutionDescription, boolean approved) {
+	public Request(ResultSet results) throws SQLException {
 		
-		this.requestId = requestId;
-		this.applicant = applicant;
-		this.status = status;
-		this.ticketLevel = ticketLevel;
-		this.amount = amount;
-		this.description = description;
-		this.reference = reference;
-		this.submissionDate = submissionDate;
-		this.resolutionDate = resolutionDate;
-		this.resolvedBy = resolvedBy;
-		this.resolutionDescription = resolutionDescription;
-		this.approved = approved;
+		this.requestId = results.getInt(COLUMN_1);
+		this.applicant = results.getString(COLUMN_2);
+		this.status = results.getInt(COLUMN_3);
+		this.ticketLevel = results.getInt(COLUMN_4);
+		this.amount = results.getDouble(COLUMN_5);
+		this.description = results.getString(COLUMN_6);
+		this.reference = results.getString(COLUMN_7);
+		this.submissionDate = results.getTimestamp(COLUMN_8);
+		this.resolutionDate = results.getTimestamp(COLUMN_9);
+		this.resolvedBy = results.getString(COLUMN_10);
+		this.resolutionDescription = results.getString(COLUMN_11);
+		this.approved = results.getBoolean(COLUMN_12);
 	}
 	
 	public Request(Employee employee, int requestId, double amount, String description, String reference) {

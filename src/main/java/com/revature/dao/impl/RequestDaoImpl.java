@@ -87,20 +87,7 @@ public class RequestDaoImpl implements RequestDao {
 			
 			while(results.next()) {
 				
-				int requestId = results.getInt(COLUMN_1);
-				String applicant = results.getString(COLUMN_2);
-				int status = results.getInt(COLUMN_3);
-				int ticketLevel = results.getInt(COLUMN_4);
-				double amount = results.getDouble(COLUMN_5);
-				String description = results.getString(COLUMN_6);
-				String reference = results.getString(COLUMN_7);
-				Timestamp submissionDate = results.getTimestamp(COLUMN_8);
-				Timestamp resolutionDate = results.getTimestamp(COLUMN_9);
-				String resolvedBy = results.getString(COLUMN_10);
-				String resolutionDescription = results.getString(COLUMN_11);
-				boolean approved = results.getBoolean(COLUMN_12);
-				
-				ret = new Request(requestId, applicant, status, ticketLevel, amount, description, reference, submissionDate, resolutionDate, resolvedBy, resolutionDescription, approved);
+				ret = new Request(results);
 			}
 			
 		}
@@ -137,20 +124,7 @@ public class RequestDaoImpl implements RequestDao {
 			
 			while(results.next()) {
 				
-				int requestId = results.getInt(COLUMN_1);
-				String applicant = results.getString(COLUMN_2);
-				int status = results.getInt(COLUMN_3);
-				int ticketLevel = results.getInt(COLUMN_4);
-				double amount = results.getDouble(COLUMN_5);
-				String description = results.getString(COLUMN_6);
-				String reference = results.getString(COLUMN_7);
-				Timestamp submissionDate = results.getTimestamp(COLUMN_8);
-				Timestamp resolutionDate = results.getTimestamp(COLUMN_9);
-				String resolvedBy = results.getString(COLUMN_10);
-				String resolutionDescription = results.getString(COLUMN_11);
-				boolean approved = results.getBoolean(COLUMN_12);
-				
-				ret.add(new Request(requestId, applicant, status, ticketLevel, amount, description, reference, submissionDate, resolutionDate, resolvedBy, resolutionDescription, approved));
+				ret.add(new Request(results));
 			}
 		}
 		
@@ -179,20 +153,7 @@ public class RequestDaoImpl implements RequestDao {
 			
 			while(results.next()) {
 				
-				int requestId = results.getInt(COLUMN_1);
-				String applicant = results.getString(COLUMN_2);
-				int status = results.getInt(COLUMN_3);
-				int ticketLevel = results.getInt(COLUMN_4);
-				double amount = results.getDouble(COLUMN_5);
-				String description = results.getString(COLUMN_6);
-				String reference = results.getString(COLUMN_7);
-				Timestamp submissionDate = results.getTimestamp(COLUMN_8);
-				Timestamp resolutionDate = results.getTimestamp(COLUMN_9);
-				String resolvedBy = results.getString(COLUMN_10);
-				String resolutionDescription = results.getString(COLUMN_11);
-				boolean approved = results.getBoolean(COLUMN_12);
-				
-				ret.add(new Request(requestId, applicant, status, ticketLevel, amount, description, reference, submissionDate, resolutionDate, resolvedBy, resolutionDescription, approved));
+				ret.add(new Request(results));
 			}
 		}
 		
