@@ -1,6 +1,7 @@
 package com.revature.controller;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,27 +19,35 @@ public class MasterServlet extends DefaultServlet{
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		PropertyConfigurator.configure("C:\\Users\\micha\\Documents\\sts-3.9.7.RELEASE\\plugins\\org.apache.axis_1.4.0.v201411182030\\lib\\log4j.properties");
+		try {
 		
-		System.out.println(request.getMethod() + " : " + request.getRequestURI());
-		LoggerUtil.log.info(String.format("%s: %s - Recieved%n", request.getMethod(), request.getRequestURI()));
-		
-		String path = request.getRequestURI().substring(request.getContextPath().length());
-		
-		if(path.startsWith("/static/")) {
+			PropertyConfigurator.configure("C:\\Users\\micha\\Documents\\sts-3.9.7.RELEASE\\plugins\\org.apache.axis_1.4.0.v201411182030\\lib\\log4j.properties");
 			
-			super.doGet(request, response);
+			LoggerUtil.log.info(request.getMethod() + " : " + request.getRequestURI());
+			LoggerUtil.log.info(String.format("%s: %s - Recieved%n", request.getMethod(), request.getRequestURI()));
+			
+			String path = request.getRequestURI().substring(request.getContextPath().length());
+			
+			if(path.startsWith("/static/")) {
+				
+				super.doGet(request, response);
+			}
+			
+			else {
+				
+				requestHelper.processGet(request, response);
+			}
 		}
 		
-		else {
+		catch(UnknownHostException e) {
 			
-			requestHelper.processGet(request, response);
+			LoggerUtil.log.info(e.getMessage());
 		}
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println(request.getMethod() + " : " + request.getRequestURI());
+		LoggerUtil.log.info(request.getMethod() + " : " + request.getRequestURI());
 		LoggerUtil.log.info(String.format("%s: %s - Recieved%n", request.getMethod(), request.getRequestURI()));
 		
 		String path = request.getRequestURI().substring(request.getContextPath().length());

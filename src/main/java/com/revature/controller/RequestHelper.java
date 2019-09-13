@@ -10,6 +10,7 @@ import com.revature.deligates.LandingDeligate;
 import com.revature.deligates.LoginDeligate;
 import com.revature.deligates.ViewDeligate;
 import com.revature.util.EncryptionUtil;
+import com.revature.util.LoggerUtil;
 import com.revature.util.StringUtil;
 
 public class RequestHelper {
@@ -20,7 +21,7 @@ public class RequestHelper {
 		
 		String uri = request.getServletPath();
 		String token = request.getHeader("token");
-		System.out.println(token + " : " + StringUtil.isValidToken(EncryptionUtil.decrypt(token)));
+		LoggerUtil.log.info(token + " : " + StringUtil.isValidToken(EncryptionUtil.decrypt(token)));
 		
 		if(uri.startsWith("/api/")) {
 			
@@ -60,7 +61,7 @@ public class RequestHelper {
 		
 		String token = request.getHeader("token");
 		
-		System.out.println(token + " : " + StringUtil.isValidToken(EncryptionUtil.decrypt(token)));
+		LoggerUtil.log.info(token + " : " + StringUtil.isValidToken(EncryptionUtil.decrypt(token)));
 		
 		if(uri.startsWith("/api/")) {
 			
