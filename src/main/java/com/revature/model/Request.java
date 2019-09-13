@@ -19,6 +19,8 @@ public class Request {
 	private Timestamp resolutionDate;
 	
 	private String resolvedBy;
+	private String resolutionDescription;
+	private boolean approved;
 	
 	public Request() {
 		
@@ -36,7 +38,7 @@ public class Request {
 		this.setSubmissionDate();
 	}
 	
-	public Request(int requestId, String applicant, int status, int ticketLevel, double amount, String description, String reference, Timestamp submissionDate, Timestamp resolutionDate, String resolvedBy) {
+	public Request(int requestId, String applicant, int status, int ticketLevel, double amount, String description, String reference, Timestamp submissionDate, Timestamp resolutionDate, String resolvedBy, String resolutionDescription, boolean approved) {
 		
 		this.requestId = requestId;
 		this.applicant = applicant;
@@ -48,6 +50,8 @@ public class Request {
 		this.submissionDate = submissionDate;
 		this.resolutionDate = resolutionDate;
 		this.resolvedBy = resolvedBy;
+		this.resolutionDescription = resolutionDescription;
+		this.approved = approved;
 	}
 	
 	public Request(Employee employee, int requestId, double amount, String description, String reference) {
@@ -63,6 +67,12 @@ public class Request {
 		this.setSubmissionDate();
 	}
 	
+	public void resolve(Employee employee) {
+		
+		this.resolvedBy = employee.getUsername();
+		this.setResolutionDate();
+	}
+	
 	public int getRequestId() { return this.requestId; }
 	public String getApplicant() { return this.applicant; }
 	public int getStatus() { return this.status; }
@@ -73,6 +83,8 @@ public class Request {
 	public Timestamp getSubmissionDate() { return this.submissionDate; }
 	public Timestamp getResolutionDate() { return this.resolutionDate; }
 	public String getResolvedBy() { return this.resolvedBy; }
+	public String getResolutionDescription() { return this.resolutionDescription; }
+	public boolean getApproved() { return this.approved; }
 	
 	public boolean setRequestId(int requestId) {
 		
@@ -164,6 +176,17 @@ public class Request {
 		return true;
 	}
 	
+	public boolean setResolutionDescription(String resolutionDescription) {
+		
+		this.resolutionDescription = resolutionDescription;
+		return true;
+	}
+	
+	public boolean setApproved(boolean approved) {
+		
+		this.approved = approved;
+		return true;
+	}
 }
 	
 	

@@ -65,6 +65,15 @@
 
                     <div class = row>
                         <div class="col">
+                            <h4 class="lead">Approved: </h4>
+                        </div>
+                        <div class="col">
+                            <h4 class="lead" id="request-modal-approved"></h4>
+                        </div>
+                    </div>
+
+                    <div class = row>
+                        <div class="col">
                             <h4 class="lead">Request Id#: </h4>
                         </div>
                         <div class="col">
@@ -150,6 +159,13 @@
                         </div>
                     </form>
 
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1" class = "lead">Resolution Description</label>
+                            <textarea class="form-control" id="request-modal-resolution-description" rows="3" disabled></textarea>
+                        </div>
+                    </form>
+
                     <span id = "landing-update-request-error-message" class = "text-danger" style = "margin-left: 13px;" hidden>Request Update Failed</span>
                     <span id = "landing-update-request-success" class = "text-info" style = "margin-left: 13px;" hidden>Request Successfully Updated</span>
 
@@ -169,7 +185,7 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h5 class="modal-title lead">Reimbursement Request Details</h5>
+                    <h5 class="modal-title lead">New Reimbursement Request</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -206,6 +222,188 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-info" onclick="onNewRequestClick();" id="request-new-button">Submit</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="new-employee-modal" tabindex="-1" role="dialog" aria-labelledby="request-aria-label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title lead">New Employee</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <form>
+
+                        <div class = "form-group">
+                            <label class="lead">First Name</label>
+                            <input type="text" class="form-control" id="new-employee-modal-firstname" aria-describedby="emailHelp" placeholder="">
+                        </div>
+
+                        <div class = "form-group">
+                            <label class="lead">Last Name</label>
+                            <input type="text" class="form-control" id="new-employee-modal-lastname" aria-describedby="emailHelp" placeholder="">
+                        </div>
+
+                        <div class = "form-group">
+                            <label class="lead">Username</label>
+                            <input type="text" class="form-control" id="new-employee-modal-username" aria-describedby="emailHelp" placeholder="">
+                        </div>
+
+                        <div class = "form-group">
+                            <label class="lead">Password</label>
+                            <input type="text" class="form-control" id="new-employee-modal-password" aria-describedby="emailHelp" placeholder="">
+                        </div>
+
+                        <div class = "form-group">
+                            <label class="lead">Email</label>
+                            <input type="email" class="form-control" id="new-employee-modal-email" aria-describedby="emailHelp" placeholder="something@mail.com">
+                        </div>
+
+                        <div class="form-group" id = "new-employee-modal-authority-list">
+                            <label for="exampleFormControlSelect1" class = "lead">Authorization Level</label>
+                            <select class="form-control" id="new-employee-modal-authority">
+                            </select>
+                        </div>
+                    </form>
+
+                    <span id = "new-employee-modal-error-message" class = "text-danger" style = "margin-left: 13px;" hidden>Failed to create a new Employee with given fields</span>
+                    <span id = "new-employee-modal-success" class = "text-info" style = "margin-left: 13px;" hidden>Employee successfully entered</span>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info" onclick="onNewEmployeeClick();" id="new-employee-modal-button">Submit</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="management-requests-modal" tabindex="-1" role="dialog" aria-labelledby="request-aria-label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title lead">Reimbursement Request Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class = row>
+                        <div class="col">
+                            <h4 class="lead">Request Id#: </h4>
+                        </div>
+                        <div class="col">
+                            <h4 class="lead" id="management-requests-modal-id"></h4>
+                        </div>
+                    </div>
+
+                    <div class = row>
+                        <div class="col">
+                            <h4 class="lead">Applicant: </h4>
+                        </div>
+                        <div class="col">
+                            <h4 class="lead" id="management-requests-modal-applicant"></h4>
+                        </div>
+                    </div>
+
+                    <div class = row>
+                        <div class="col">
+                            <h4 class="lead">Status: </h4>
+                        </div>
+                        <div class="col">
+                            <h4 class="lead" id="management-requests-modal-status"></h4>
+                        </div>
+                    </div>
+
+                    <div class = row>
+                        <div class="col">
+                            <h4 class="lead">Ticket Level: </h4>
+                        </div>
+                        <div class="col">
+                            <h4 class="lead" id="management-requests-modal-authority"></h4>
+                        </div>
+                    </div>
+
+                    <div class = row>
+                        <div class="col">
+                            <h4 class="lead">Amount: </h4>
+                        </div>
+                        <div class="col">
+                            <h4 class="lead" id="management-requests-modal-amount"></h4>
+                        </div>
+                    </div>
+
+                    <div class = row>
+                        <div class="col">
+                            <h4 class="lead">Submission Date: </h4>
+                        </div>
+                        <div class="col">
+                            <h4 class="lead" id="management-requests-modal-submission-date"></h4>
+                        </div>
+                    </div>
+
+                    <div class = row>
+                        <div class="col">
+                            <h4 class="lead">Resolution Date: </h4>
+                        </div>
+                        <div class="col">
+                            <h4 class="lead" id="management-requests-modal-resolution-date"></h4>
+                        </div>
+                    </div>
+
+                    <div class = row>
+                        <div class="col">
+                            <h4 class="lead">Resolved By: </h4>
+                        </div>
+                        <div class="col">
+                            <h4 class="lead" id="management-requests-modal-resolved-by"></h4>
+                        </div>
+                    </div>
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1" class = "lead">Description</label>
+                            <textarea class="form-control" id="management-requests-modal-description" rows="3" disabled></textarea>
+                        </div>
+                    </form>
+
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1" class = "lead">Reference</label>
+                            <textarea class="form-control" id="management-requests-modal-reference" rows="3" disabled></textarea>
+                        </div>
+                    </form>
+
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1" class = "lead">Resolution Description</label>
+                            <textarea class="form-control" id="management-requests-modal-resolution-description" rows="3"></textarea>
+                            <small class="form-text text-muted">Optional - 500 Character Limit</small>
+                        </div>
+                    </form>
+
+                    <span id = "management-requests-modal-error-message" class = "text-danger" style = "margin-left: 13px;" hidden>Request Update Failed</span>
+                    <span id = "management-requests-modal-success" class = "text-info" style = "margin-left: 13px;" hidden>Request Successfully Updated</span>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" onclick="onManagementUpdateRequestClick(false)" id="management-requests-modal-reject-button">Reject</button>
+                    <button type="button" class="btn btn-info" onclick="onManagementUpdateRequestClick(true)" id="management-requests-modal-approved-button">Approve</button>
                 </div>
 
             </div>
@@ -296,13 +494,19 @@
                                 <ul style = "list-style-type: none;">
 
                                     <li class="nav-item">
-                                        <a onclick = "onNavbarEntryClick(this); loadManagementEmployees();" href = "#" class="nav-link" id="navbar-my-requests">
+                                        <a onclick = "onNavbarEntryClick(this); loadManagementRequests()" href = "#" class="nav-link" id="navbar-management-requests">
+                                        Review Requests
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a onclick = "onNavbarEntryClick(this); loadManagementEmployees();" href = "#" class="nav-link" id="navbar-management-employees">
                                         View Employees
                                         </a>
                                     </li>
 
                                     <li class="nav-item">
-                                    <a href = "#" class="nav-link">Create Employee</a>
+                                    <a href = "#" onclick="onNavbarEntryClickGetManagementEmployees(); loadManagementEmployees()" class="nav-link" data-toggle="modal" data-target="#new-employee-modal" id=navbar-new-employee>Create Employee</a>
                                     </li>
 
                                 </ul>
@@ -404,7 +608,7 @@
 
                                 <thead>
                                     <tr>
-                                        <th style = "width: 5%">ID#</th>
+                                        <th style = "width: 4%">ID#</th>
                                         <th style = "width: 10%">Applicant</th>
                                         <th style = "width: 10%">Status</th>
                                         <th style = "width: 12%">Ticket Level</th>
@@ -412,7 +616,7 @@
                                         <th style = "width: 15%">Submission Date</th>
                                         <th style = "width: 15%">Resolution Date</th>
                                         <th style = "width: 15%">Resolved By</th>
-                                        <th style = "width: 5%">Info</th>
+                                        <th style = "width: 4%">Info</th>
                                     </tr>
                                 </thead>
                                 <tbody id = "request-table-body">
@@ -420,6 +624,88 @@
                             </table>
                         </div>
                     </div>
+                </div>
+
+                <div class = "landing-div" id = "landing-management-requests" hidden>
+
+                    <div class = "jumbotron jumbotron-fluid bg-white">
+                        <div class="text-center m-0 d-flex flex-column">
+                            <h1 class = "text-dark">Employee Requests</h1>
+                            <h4 class = "lead text-dark" id="management-requests-subheader"></h4>
+                        </div>
+                    </div>
+
+                    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #F2F2F2!important; margin: auto; width:80%!important;" id="management-filter-nav">
+
+                        <a class="navbar-brand">Filter</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#managementNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                            <div class="collapse navbar-collapse" id="managementNavDropdown">
+                                <ul class="navbar-nav">
+
+                                    <li class="nav-item active">
+                                    <a id = "filter-all" class="nav-link" onclick ="onManagementFilterClick(this); filterManagementAllRequests();" href = "#">All<span class="sr-only">(current)</span></a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                    <a class="nav-link" onclick ="onManagementFilterClick(this); filterManagementUnopenedRequests();" href = "#">Unopened</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                    <a class="nav-link" onclick ="onManagementFilterClick(this); filterManagementPendingRequests();" href = "#">Pending</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                    <a class="nav-link" onclick ="onManagementFilterClick(this); filterManagementResolvedRequests();" href = "#">Resolved</a>
+                                    </li>
+
+                                </ul>
+                        </div>
+
+                        <form class="form-inline">
+
+                            <div class="input-group">
+
+                                <div class="input-group-prepend">
+
+                                <span class="input-group-text" id="basic-addon1">@</span>
+                                
+                                </div>
+
+                                <input type="text" class="form-control" placeholder="Search..." aria-label="Username" aria-describedby="basic-addon1" id="management-filter-username">
+
+                            </div>
+                        </form>
+
+                    </nav>
+
+                    <div class = "row m-0">
+
+                        <div class = "table-wrapper-scroll-y table-scrollbar">
+
+                            <table class = "table table-striped table-bordered m-0">
+
+                                <thead>
+                                    <tr>
+                                        <th style = "width: 4%">ID#</th>
+                                        <th style = "width: 10%">Applicant</th>
+                                        <th style = "width: 10%">Status</th>
+                                        <th style = "width: 12%">Ticket Level</th>
+                                        <th style = "width: 7%">Amount</th>
+                                        <th style = "width: 15%">Submission Date</th>
+                                        <th style = "width: 15%">Resolution Date</th>
+                                        <th style = "width: 15%">Resolved By</th>
+                                        <th style = "width: 4%">Info</th>
+                                    </tr>
+                                </thead>
+                                <tbody id = "management-requests-table-body">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class = "landing-div" id = "landing-management-employees" hidden>
@@ -430,6 +716,26 @@
                             <h4 class = "lead text-dark" id="management-employee-directory-subheader"></h4>
                         </div>
                     </div>
+
+                    <div class = "row m-0">
+
+                        <div class = "table-wrapper-scroll-y table-scrollbar">
+
+                            <table class = "table table-striped table-bordered m-0">
+
+                                <thead>
+                                    <tr>
+                                        <th style = "width: 12%">First Name</th>
+                                        <th style = "width: 12%">Last Name</th>
+                                        <th style = "width: 12%">Email</th>
+                                        <th style = "width: 12%">Authorization</th>
+                                        <th style = "width: 12%">Username</th>
+                                    </tr>
+                                </thead>
+                                <tbody id = "employee-table-body">
+                                </tbody>
+                            </table>
+                        </div>
 
                 </div>
             </div>

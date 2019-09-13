@@ -10,6 +10,7 @@ public interface RequestDao {
 	
 	public Request getRequestById(int requestid);
 	public List<Request> getRequestsByApplicant(String applicant);
+	public List<Request> getRequestsByAuthority(int authority);
 	
 	public int createRequest(Request request);
 	public int updateRequest(Request request);

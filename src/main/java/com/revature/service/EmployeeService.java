@@ -1,5 +1,7 @@
 package com.revature.service;
 
+import java.util.List;
+
 import com.revature.dao.EmployeeDao;
 import com.revature.dao.impl.EmployeeDaoImpl;
 import com.revature.model.Employee;
@@ -54,4 +56,13 @@ public class EmployeeService {
 		return dao.updateEmployee(employee) > 0;
 	}
 	
+	public List<Employee> getEmployeesByAuthority(int authority){
+		
+		return dao.getEmployeesByAuthority(authority);
+	}
+	
+	public boolean createEmployee(Employee employee) {
+		
+		return dao.createEmployee(employee) > 0;
+	}
 }

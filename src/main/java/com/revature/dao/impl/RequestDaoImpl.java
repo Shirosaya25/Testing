@@ -28,6 +28,8 @@ public class RequestDaoImpl implements RequestDao {
 	private static final String COLUMN_8 = "SubmissionDate";
 	private static final String COLUMN_9 = "ResolutionDate";
 	private static final String COLUMN_10 = "ResolvedBy";
+	private static final String COLUMN_11 = "ResolutionDescription";
+	private static final String COLUMN_12 = "Approved";
 	
 	private static final String FUNC_1 = "nextRequestId";
 
@@ -95,8 +97,10 @@ public class RequestDaoImpl implements RequestDao {
 				Timestamp submissionDate = results.getTimestamp(COLUMN_8);
 				Timestamp resolutionDate = results.getTimestamp(COLUMN_9);
 				String resolvedBy = results.getString(COLUMN_10);
+				String resolutionDescription = results.getString(COLUMN_11);
+				boolean approved = results.getBoolean(COLUMN_12);
 				
-				ret = new Request(requestId, applicant, status, ticketLevel, amount, description, reference, submissionDate, resolutionDate, resolvedBy);
+				ret = new Request(requestId, applicant, status, ticketLevel, amount, description, reference, submissionDate, resolutionDate, resolvedBy, resolutionDescription, approved);
 			}
 			
 		}
@@ -109,6 +113,7 @@ public class RequestDaoImpl implements RequestDao {
 		return ret;
 		
 	}
+	
 	/**
 	 * Gets all request submitted by a given applicant
 	 * @param applicantParam: username of applicant
@@ -142,8 +147,52 @@ public class RequestDaoImpl implements RequestDao {
 				Timestamp submissionDate = results.getTimestamp(COLUMN_8);
 				Timestamp resolutionDate = results.getTimestamp(COLUMN_9);
 				String resolvedBy = results.getString(COLUMN_10);
+				String resolutionDescription = results.getString(COLUMN_11);
+				boolean approved = results.getBoolean(COLUMN_12);
 				
-				ret.add(new Request(requestId, applicant, status, ticketLevel, amount, description, reference, submissionDate, resolutionDate, resolvedBy));
+				ret.add(new Request(requestId, applicant, status, ticketLevel, amount, description, reference, submissionDate, resolutionDate, resolvedBy, resolutionDescription, approved));
+			}
+		}
+		
+		catch(SQLException e) {
+			
+			LoggerUtil.log.error(e.getMessage());
+		}
+		
+		return ret;
+	}
+	
+	public List<Request> getRequestsByAuthority(int authority) {
+		
+		List<Request> ret = new ArrayList<Request>();
+		
+		String sql = String.format("select * from \"%s\" where \"%s\" <= ? order by \"%s\" desc",
+									TABLE_NAME, COLUMN_4, COLUMN_8);
+		
+		Connection conn = ConnectionUtil.getConnection();
+		
+		try(PreparedStatement statement = conn.prepareStatement(sql)){
+			
+			statement.setInt(1, authority);
+			
+			ResultSet results = statement.executeQuery();
+			
+			while(results.next()) {
+				
+				int requestId = results.getInt(COLUMN_1);
+				String applicant = results.getString(COLUMN_2);
+				int status = results.getInt(COLUMN_3);
+				int ticketLevel = results.getInt(COLUMN_4);
+				double amount = results.getDouble(COLUMN_5);
+				String description = results.getString(COLUMN_6);
+				String reference = results.getString(COLUMN_7);
+				Timestamp submissionDate = results.getTimestamp(COLUMN_8);
+				Timestamp resolutionDate = results.getTimestamp(COLUMN_9);
+				String resolvedBy = results.getString(COLUMN_10);
+				String resolutionDescription = results.getString(COLUMN_11);
+				boolean approved = results.getBoolean(COLUMN_12);
+				
+				ret.add(new Request(requestId, applicant, status, ticketLevel, amount, description, reference, submissionDate, resolutionDate, resolvedBy, resolutionDescription, approved));
 			}
 		}
 		
@@ -207,10 +256,12 @@ public class RequestDaoImpl implements RequestDao {
 		int ret = 0;
 		
 		String sql = String.format("update \"%s\" set \"%s\" = ?, \"%s\" = ?, \"%s\" = ?, \"%s\" = ?,"
-								 + "\"%s\" = ?, \"%s\" = ?, \"%s\" = ?, \"%s\" = ?, \"%s\" = ?"
+								 + "\"%s\" = ?, \"%s\" = ?, \"%s\" = ?, \"%s\" = ?, \"%s\" = ?,"
+								 + "\"%s\" = ?, \"%s\" = ?"
 								 + "where \"%s\" = ?",
 								 	TABLE_NAME, COLUMN_2, COLUMN_3, COLUMN_4, COLUMN_5, 
 								 	COLUMN_6, COLUMN_7, COLUMN_8, COLUMN_9, COLUMN_10,
+								 	COLUMN_11, COLUMN_12,
 								 	COLUMN_1);
 		
 		Connection conn = ConnectionUtil.getConnection();
@@ -226,7 +277,9 @@ public class RequestDaoImpl implements RequestDao {
 			statement.setTimestamp(7, request.getSubmissionDate());
 			statement.setTimestamp(8, request.getResolutionDate());
 			statement.setString(9, request.getResolvedBy());
-			statement.setInt(10, request.getRequestId());
+			statement.setString(10, request.getResolutionDescription());
+			statement.setBoolean(11, request.getApproved());
+			statement.setInt(12, request.getRequestId());
 			
 			ret = statement.executeUpdate();
 			

@@ -16,9 +16,14 @@ public class RequestService {
 		return dao.getNextRequestId();
 	}
 	
-	public List<Request> getRequestsByApplicant(Employee employee){
+	public List<Request> getRequestsByApplicant(Employee employee) {
 		
 		return dao.getRequestsByApplicant(employee.getUsername());
+	}
+	
+	public List<Request> getRequestsByAuthority(int authority) {
+		
+		return dao.getRequestsByAuthority(authority);
 	}
 	
 	public boolean createRequest(Request request) {

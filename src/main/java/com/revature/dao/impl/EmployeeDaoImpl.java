@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.revature.dao.EmployeeDao;
 import com.revature.model.Employee;
@@ -53,6 +55,45 @@ public class EmployeeDaoImpl implements EmployeeDao {
 				int empAuthority = results.getInt(COLUMN_6);
 				
 				ret = new Employee(empUsername, empPassword, empFirstname, empLastname, empEmail, empAuthority);
+			}
+			
+			results.close();
+			conn.close();
+			
+		}
+		
+		catch(SQLException e) {
+			
+			LoggerUtil.log.error(e.getMessage());
+		}
+		
+		return ret;
+	}
+	
+	public List<Employee> getEmployeesByAuthority(int authority) {
+		
+		List<Employee> ret = new ArrayList<Employee>();
+
+		String sql = String.format("Select * from \"%s\" where \"%s\" < ?",
+									TABLE_NAME, COLUMN_6);
+		
+		Connection conn = ConnectionUtil.getConnection();
+		
+		try(PreparedStatement statement = conn.prepareStatement(sql)){
+			
+			statement.setInt(1, authority);
+			ResultSet results = statement.executeQuery();
+			
+			while(results.next()) {
+				
+				String empUsername = results.getString(COLUMN_1);
+				String empPassword = results.getString(COLUMN_2);
+				String empFirstname = results.getString(COLUMN_3);
+				String empLastname = results.getString(COLUMN_4);
+				String empEmail = results.getString(COLUMN_5);
+				int empAuthority = results.getInt(COLUMN_6);
+				
+				ret.add(new Employee(empUsername, empPassword, empFirstname, empLastname, empEmail, empAuthority));
 			}
 			
 			results.close();
