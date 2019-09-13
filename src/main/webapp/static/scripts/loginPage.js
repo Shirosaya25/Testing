@@ -8,8 +8,8 @@ const baseUrl = "http://localhost:8080/Project1/";
 
 function onLoginClick(){
 
-    username = document.getElementById("username-input").value;
-    password = document.getElementById("password-input").value;
+    let username = document.getElementById("username-input").value;
+    let password = document.getElementById("password-input").value;
     
     if(!username){
 

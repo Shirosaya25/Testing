@@ -23,6 +23,26 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	private static final String COLUMN_5 = "Email";
 	private static final String COLUMN_6 = "Authority";
 
+	private List<Employee> getEmployeesFromResultSet(PreparedStatement statement){
+		
+		List<Employee> ret = new ArrayList<Employee>();
+		
+		try (ResultSet results = statement.executeQuery()){
+			
+			while(results.next()) {
+				
+				ret.add(new Employee(results));
+			}
+		}
+		
+		catch (SQLException e) {
+			
+			LoggerUtil.log.warn(e.getMessage());
+		}
+		
+		return ret;
+	}
+	
 	/**
 	 * Retrieves an employee from the database via unique username
 	 * @param username: String to attempt to match with database
@@ -43,21 +63,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		try(PreparedStatement statement = conn.prepareStatement(sql)){
 			
 			statement.setString(1, username);
-			ResultSet results = statement.executeQuery();
 			
-			while(results.next()) {
-				
-				String empUsername = results.getString(COLUMN_1);
-				String empPassword = results.getString(COLUMN_2);
-				String empFirstname = results.getString(COLUMN_3);
-				String empLastname = results.getString(COLUMN_4);
-				String empEmail = results.getString(COLUMN_5);
-				int empAuthority = results.getInt(COLUMN_6);
-				
-				ret = new Employee(empUsername, empPassword, empFirstname, empLastname, empEmail, empAuthority);
-			}
-			
-			results.close();
+			ret = getEmployeesFromResultSet(statement).get(0);
 			conn.close();
 			
 		}
@@ -82,21 +89,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		try(PreparedStatement statement = conn.prepareStatement(sql)){
 			
 			statement.setInt(1, authority);
-			ResultSet results = statement.executeQuery();
 			
-			while(results.next()) {
-				
-				String empUsername = results.getString(COLUMN_1);
-				String empPassword = results.getString(COLUMN_2);
-				String empFirstname = results.getString(COLUMN_3);
-				String empLastname = results.getString(COLUMN_4);
-				String empEmail = results.getString(COLUMN_5);
-				int empAuthority = results.getInt(COLUMN_6);
-				
-				ret.add(new Employee(empUsername, empPassword, empFirstname, empLastname, empEmail, empAuthority));
-			}
+			ret = getEmployeesFromResultSet(statement);
 			
-			results.close();
 			conn.close();
 			
 		}
@@ -129,21 +124,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		try(PreparedStatement statement = conn.prepareStatement(sql)){
 			
 			statement.setString(1, email);
-			ResultSet results = statement.executeQuery();
 			
-			while(results.next()) {
-				
-				String empUsername = results.getString(COLUMN_1);
-				String empPassword = results.getString(COLUMN_2);
-				String empFirstname = results.getString(COLUMN_3);
-				String empLastname = results.getString(COLUMN_4);
-				String empEmail = results.getString(COLUMN_5);
-				int empAuthority = results.getInt(COLUMN_6);
-				
-				ret = new Employee(empUsername, empPassword, empFirstname, empLastname, empEmail, empAuthority);
-			}
+			ret = getEmployeesFromResultSet(statement).get(0);
 			
-			results.close();
 			conn.close();
 			
 		}

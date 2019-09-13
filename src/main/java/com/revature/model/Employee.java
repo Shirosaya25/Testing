@@ -1,5 +1,8 @@
 package com.revature.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import com.revature.util.EncryptionUtil;
 import com.revature.util.StringUtil;
 
@@ -11,6 +14,13 @@ public class Employee {
 	private String lastname;
 	private String email;
 	private int authority;
+	
+	private static final String COLUMN_1 = "Username";
+	private static final String COLUMN_2 = "Password";
+	private static final String COLUMN_3 = "FirstName";
+	private static final String COLUMN_4 = "LastName";
+	private static final String COLUMN_5 = "Email";
+	private static final String COLUMN_6 = "Authority";
 	
 	public Employee() {
 		
@@ -25,6 +35,16 @@ public class Employee {
 		this.lastname = lastname.toUpperCase();
 		this.email = email.toLowerCase();
 		this.authority = authority;
+	}
+	
+	public Employee(ResultSet results) throws SQLException {
+		
+		this.username = results.getString(COLUMN_1);
+		this.password = results.getString(COLUMN_2);
+		this.firstname = results.getString(COLUMN_3);
+		this.lastname = results.getString(COLUMN_4);
+		this.email = results.getString(COLUMN_5);
+		this.authority = results.getInt(COLUMN_6);
 	}
 	
 	public boolean login(String unencryptedPassword) {

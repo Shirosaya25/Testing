@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +31,26 @@ public class RequestDaoImpl implements RequestDao {
 	private static final String COLUMN_12 = "Approved";
 	
 	private static final String FUNC_1 = "nextRequestId";
+	
+	private List<Request> getRequestsFromResultSet(PreparedStatement statement) {
+		
+		List<Request> ret = new ArrayList<Request>();
+		
+		try (ResultSet results = statement.executeQuery()){
+			
+			while(results.next()) {
+				
+				ret.add(new Request(results));
+			}
+		}
+		
+		catch (SQLException e) {
+			
+			LoggerUtil.log.warn(e.getMessage());
+		}
+		
+		return ret;
+	}
 
 	/**
 	 * Calls database function to get the current account id serial and returns the next value
@@ -83,12 +102,7 @@ public class RequestDaoImpl implements RequestDao {
 			
 			statement.setInt(1,  requestIdParam);
 			
-			ResultSet results = statement.executeQuery();
-			
-			while(results.next()) {
-				
-				ret = new Request(results);
-			}
+			ret = getRequestsFromResultSet(statement).get(0);
 			
 		}
 		
@@ -120,12 +134,7 @@ public class RequestDaoImpl implements RequestDao {
 			
 			statement.setString(1, applicantParam);
 			
-			ResultSet results = statement.executeQuery();
-			
-			while(results.next()) {
-				
-				ret.add(new Request(results));
-			}
+			ret = getRequestsFromResultSet(statement);
 		}
 		
 		catch(SQLException e) {
@@ -149,12 +158,7 @@ public class RequestDaoImpl implements RequestDao {
 			
 			statement.setInt(1, authority);
 			
-			ResultSet results = statement.executeQuery();
-			
-			while(results.next()) {
-				
-				ret.add(new Request(results));
-			}
+			ret = getRequestsFromResultSet(statement);
 		}
 		
 		catch(SQLException e) {

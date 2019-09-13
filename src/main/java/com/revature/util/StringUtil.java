@@ -1,6 +1,5 @@
 package com.revature.util;
 
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
