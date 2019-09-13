@@ -1,6 +1,6 @@
 $('.collapse').collapse()
 
-$('#passwordChangeModal').on('hidden.bs.modal', function () {
+$('#employee-password-change-modal').on('hidden.bs.modal', function () {
 
     document.getElementById("landing-new-password-success").hidden = true;
     document.getElementById("landing-new-password-error-message").hidden = true;
@@ -8,9 +8,15 @@ $('#passwordChangeModal').on('hidden.bs.modal', function () {
     document.getElementById("landing-new-password-current").value = "";
     document.getElementById("landing-new-password-new").value = "";
     document.getElementById("landing-new-password-confirm").value = "";
+
+    document.getElementById("password-change-button").disabled = false;
+    document.getElementById("password-change-button").setAttribute("onclick", "onPasswordChangeClick();");
+    document.getElementById("landing-new-password-current").disabled = false;
+    document.getElementById("landing-new-password-new").disabled = false;
+    document.getElementById("landing-new-password-confirm").disabled = false;
 });
 
-$('#passwordChangeModal').keypress(function(e){
+$('#employee-password-change-modal').keypress(function(e){
     if (e.which == 13){
         $("#password-change-button").click();
     }
@@ -182,7 +188,7 @@ function applyRequestTable(list){
         
         let atag = document.createElement('a');
         atag.setAttribute('href', "#");
-        atag.setAttribute('class', 'landing-anchor-glyph');
+        atag.setAttribute('class', 'landing-anchor-glyph info-a');
         atag.setAttribute('data-toggle', 'modal');
         atag.setAttribute('data-target', '#request-info-modal');
         atag.setAttribute('onclick', 'onRequestModalExpand(this)');
@@ -221,7 +227,7 @@ function applyRequestTableWithParam(list, status){
 
         let atag = document.createElement('a');
         atag.setAttribute('href', "#2");
-        atag.setAttribute('class', 'landing-anchor-glyph');
+        atag.setAttribute('class', 'landing-anchor-glyph info-a');
         atag.setAttribute('data-toggle', 'modal');
         atag.setAttribute('data-target', '#request-info-modal');
         atag.setAttribute('onclick', 'onRequestModalExpand(this)');
@@ -275,6 +281,12 @@ function passwordChangeCallback(newPassword){
     document.getElementById("account-password").textContent = newPassword;
     document.getElementById("landing-new-password-error-message").hidden = true;
     document.getElementById("landing-new-password-success").hidden = false;
+
+    document.getElementById("password-change-button").disabled = true;
+    document.getElementById("password-change-button").setAttribute("onclick", "");
+    document.getElementById("landing-new-password-current").disabled = true;
+    document.getElementById("landing-new-password-new").disabled = true;
+    document.getElementById("landing-new-password-confirm").disabled = true;
 }
 
 function passwordChangeErrorCallback(status){
@@ -645,6 +657,13 @@ function onNavbarEntryClickGetManagementEmployees(){
     document.getElementById("new-employee-modal-email").value = "";
     document.getElementById("new-employee-modal-authority").value = "Employee";
 
+    document.getElementById("new-employee-modal-firstname").disabled = false;
+    document.getElementById("new-employee-modal-lastname").disabled = false;
+    document.getElementById("new-employee-modal-username").disabled = false;
+    document.getElementById("new-employee-modal-password").disabled = false;
+    document.getElementById("new-employee-modal-email").disabled = false;
+    document.getElementById("new-employee-modal-authority").disabled = false;
+
     document.getElementById("new-employee-modal-button").setAttribute("onclick", "onNewEmployeeClick();")
     document.getElementById("new-employee-modal-button").disabled = false;
 
@@ -662,6 +681,13 @@ function onNewEmployeeSuccess(){
     document.getElementById("new-employee-modal-success").hidden = false;
     document.getElementById("new-employee-modal-button").setAttribute("onclick", "")
     document.getElementById("new-employee-modal-button").disabled = true;
+
+    document.getElementById("new-employee-modal-firstname").disabled = true;
+    document.getElementById("new-employee-modal-lastname").disabled = true;
+    document.getElementById("new-employee-modal-username").disabled = true;
+    document.getElementById("new-employee-modal-password").disabled = true;
+    document.getElementById("new-employee-modal-email").disabled = true;
+    document.getElementById("new-employee-modal-authority").disabled = true;;
 
     getManagementEmployees(applyEmployeeTable);
 }
@@ -794,7 +820,7 @@ function applyManagementRequestsTable(list){
         
         atag = document.createElement('a');
         atag.setAttribute('href', "#");
-        atag.setAttribute('class', 'management-anchor-glyph');
+        atag.setAttribute('class', 'management-anchor-glyph info-a');
         atag.setAttribute('data-toggle', 'modal');
         atag.setAttribute('data-target', '#management-requests-modal');
         atag.setAttribute('onclick', 'onManagementRequestsModalExpand(this)');
@@ -837,7 +863,7 @@ function applyManagementRequestsTableWithParams(list, status, str){
         
         atag = document.createElement('a');
         atag.setAttribute('href', "#");
-        atag.setAttribute('class', 'management-anchor-glyph');
+        atag.setAttribute('class', 'management-anchor-glyph info-a');
         atag.setAttribute('data-toggle', 'modal');
         atag.setAttribute('data-target', '#management-requests-modal');
         atag.setAttribute('onclick', 'onManagementRequestsModalExpand(this)');
@@ -1005,12 +1031,9 @@ function managementTableUpdateRequest(request){
 
         filterManagementResolvedRequests();
     }
-
 }
 
 function managementTableUpdateRequestError(){
-
-
 }
 
 function onManagementUpdateRequestClick(approved){
