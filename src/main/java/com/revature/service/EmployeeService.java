@@ -15,6 +15,8 @@ public class EmployeeService {
 	
 	public Employee logInEmployee(String username, String unencryptedPassword) {
 		
+		if(username == null || unencryptedPassword == null) return null;
+		
 		Employee ret = null;
 		
 		if(StringUtil.isValidUsername(username)) {

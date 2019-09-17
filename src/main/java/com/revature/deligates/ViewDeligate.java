@@ -11,6 +11,12 @@ public class ViewDeligate {
 	private static final String LOGIN_VIEW = "/static/views/login.html";
 	private static final String LANDING_VIEW = "/static/views/landing.html";
 
+	/**
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void returnView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		
 		String uri = request.getServletPath();
@@ -33,7 +39,7 @@ public class ViewDeligate {
 			break;
 			
 		default:
-			response.setStatus(400);
+			request.getRequestDispatcher(LOGIN_VIEW).forward(request, response);
 			break;
 		}
 	}

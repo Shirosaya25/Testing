@@ -17,6 +17,11 @@ public class LoginDeligate {
 	private EmployeeService eservice = new EmployeeService();
 	private ObjectMapper om = new ObjectMapper();
 	
+	/**
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
 	public void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		String username = request.getHeader("username");
@@ -31,6 +36,7 @@ public class LoginDeligate {
 		}
 		
 		String rawToken = StringUtil.getRandomString() + "." + StringUtil.getRandomString() + "." + StringUtil.getRandomString();
+		
 		LoggerUtil.log.info(rawToken);
 		
 		response.setHeader("Login", "Success");
@@ -38,5 +44,22 @@ public class LoginDeligate {
 		response.setHeader("URL", "landing");
 		response.setHeader("Token", EncryptionUtil.encrypt(rawToken));
 		
+	}
+	
+	/**
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	public void validateToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		String token = request.getHeader("token");
+		
+		if(StringUtil.isValidToken(token)) {
+			
+			return;
+		}
+		
+		response.setStatus(400);
 	}
 }

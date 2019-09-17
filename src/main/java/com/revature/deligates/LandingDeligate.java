@@ -21,6 +21,12 @@ public class LandingDeligate {
 	private EmployeeService eservice = new EmployeeService();
 	private RequestService rservice = new RequestService();
 	
+	/**
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public void getRequestsByEmployee(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
 		List<Request> employeeRequests = rservice.getRequestsByApplicant(om.readValue(request.getHeader("User"), Employee.class));
@@ -32,6 +38,12 @@ public class LandingDeligate {
 		}
 	}
 	
+	/**
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public void getRequestsByAuthority(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
 		List<Request> reiRequests = rservice.getRequestsByAuthority(Integer.parseInt(request.getHeader("authority")));
@@ -43,6 +55,12 @@ public class LandingDeligate {
 		}
 	}
 	
+	/**
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public void getEmployeesByAuthority(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
 		List<Employee> employees = eservice.getEmployeesByAuthority(Integer.parseInt(request.getHeader("authority")));
@@ -54,6 +72,12 @@ public class LandingDeligate {
 		}
 	}
 	
+	/**
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public void postNewEmployee(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
 		Employee user = om.readValue(request.getHeader("user"), Employee.class);
@@ -68,6 +92,12 @@ public class LandingDeligate {
 		response.setStatus(403);
 	}
 	
+	/**
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public void postNewPassword(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
 		Employee user = eservice.logInEmployee(request.getHeader("Username"), request.getHeader("Password"));
@@ -83,6 +113,12 @@ public class LandingDeligate {
 		response.setHeader("NewPassword", user.getPassword());
 	}
 	
+	/**
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public void postUpdateRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
 		Request reiRequest = om.readValue(request.getHeader("request"), Request.class);
@@ -95,6 +131,12 @@ public class LandingDeligate {
 		response.setStatus(403);
 	}
 	
+	/**
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public void postNewRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
 		Employee user = om.readValue(request.getHeader("user"), Employee.class);
@@ -109,6 +151,12 @@ public class LandingDeligate {
 		response.setStatus(403);
 	}
 	
+	/**
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public void postFinalRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
 		Request reiRequest = om.readValue(request.getHeader("request"), Request.class);

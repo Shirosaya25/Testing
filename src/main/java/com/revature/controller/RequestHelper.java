@@ -9,19 +9,20 @@ import javax.servlet.http.HttpServletResponse;
 import com.revature.deligates.LandingDeligate;
 import com.revature.deligates.LoginDeligate;
 import com.revature.deligates.ViewDeligate;
-import com.revature.util.EncryptionUtil;
-import com.revature.util.LoggerUtil;
-import com.revature.util.StringUtil;
 
 public class RequestHelper {
 	
 	private static ViewDeligate viewDeligate = new ViewDeligate();
 	
+	/**
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void processGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String uri = request.getServletPath();
-		String token = request.getHeader("token");
-		LoggerUtil.log.info(token + " : " + StringUtil.isValidToken(EncryptionUtil.decrypt(token)));
 		
 		if(uri.startsWith("/api/")) {
 			
@@ -48,6 +49,10 @@ public class RequestHelper {
 			}
 		}
 		
+		else if(uri.startsWith("/auth")) {
+			
+			new LoginDeligate().validateToken(request, response);
+		}
 		
 		else {
 			
@@ -55,13 +60,15 @@ public class RequestHelper {
 		}
 	}
 	
+	/**
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void processPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String uri = request.getServletPath();
-		
-		String token = request.getHeader("token");
-		
-		LoggerUtil.log.info(token + " : " + StringUtil.isValidToken(EncryptionUtil.decrypt(token)));
 		
 		if(uri.startsWith("/api/")) {
 			

@@ -80,13 +80,15 @@ public class EncryptionUtil {
      */
     public static String decrypt(String strToDecrypt) {
     	
+    	if(strToDecrypt == null) return null;
+    	
         try {
         	
             setKey(AES_KEY);
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING");
             cipher.init(Cipher.DECRYPT_MODE, secretKey);
             
-            return new String(cipher.doFinal(Base64.getDecoder().decode(strToDecrypt)));
+            return new String(cipher.doFinal(Base64.getDecoder().decode(strToDecrypt.getBytes("UTF-8"))));
         }
         
         catch (Exception e) {

@@ -23,6 +23,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	private static final String COLUMN_5 = "Email";
 	private static final String COLUMN_6 = "Authority";
 
+	/**
+	 * @param statement
+	 * @return
+	 */
 	private List<Employee> getEmployeesFromResultSet(PreparedStatement statement){
 		
 		List<Employee> ret = new ArrayList<Employee>();
