@@ -154,10 +154,10 @@ public class Employee {
 				return false;
 		} else if (!lastname.equals(other.lastname))
 			return false;
-		if (password == null) {
+		if (EncryptionUtil.decrypt(password) == null) {
 			if (other.password != null)
 				return false;
-		} else if (!password.equals(other.password))
+		} else if (!EncryptionUtil.decrypt(password).equals(EncryptionUtil.decrypt(other.password)))
 			return false;
 		if (username == null) {
 			if (other.username != null)

@@ -35,14 +35,14 @@ public class LoginDeligate {
 			return;
 		}
 		
-		String rawToken = StringUtil.getRandomString() + "." + StringUtil.getRandomString() + "." + StringUtil.getRandomString();
+		String token = EncryptionUtil.encrypt(StringUtil.getRandomString() + "." + StringUtil.getRandomString() + "." + StringUtil.getRandomString());
 		
-		LoggerUtil.log.info(rawToken);
+		LoggerUtil.log.info(token);
 		
 		response.setHeader("Login", "Success");
 		response.setHeader("User", om.writeValueAsString(user));
 		response.setHeader("URL", "landing");
-		response.setHeader("Token", EncryptionUtil.encrypt(rawToken));
+		response.setHeader("Token", token);
 		
 	}
 	

@@ -29,7 +29,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	 */
 	private List<Employee> getEmployeesFromResultSet(PreparedStatement statement){
 		
-		List<Employee> ret = new ArrayList<Employee>();
+		List<Employee> ret = new ArrayList<>();
 		
 		try (ResultSet results = statement.executeQuery()){
 			
@@ -83,7 +83,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	
 	public List<Employee> getEmployeesByAuthority(int authority) {
 		
-		List<Employee> ret = new ArrayList<Employee>();
+		List<Employee> ret = new ArrayList<>();
 
 		String sql = String.format("Select * from \"%s\" where \"%s\" < ?",
 									TABLE_NAME, COLUMN_6);
@@ -176,7 +176,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		
 		catch(SQLException e) {
 			
-			LoggerUtil.log.error(e.getMessage().toString());
+			LoggerUtil.log.error(e.getMessage());
 		}
 		
 		return ret;

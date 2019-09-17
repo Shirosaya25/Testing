@@ -224,7 +224,7 @@ function applyRequestTable(list, sort, status){
         row.insertCell(1).appendChild(document.createTextNode(e.applicant));
         row.insertCell(2).appendChild(document.createTextNode(statEnum[e.status]));
         row.insertCell(3).appendChild(document.createTextNode(authEnum[e.ticketLevel]));
-        row.insertCell(4).appendChild(document.createTextNode("$" + parseInt(e.amount).toFixed(2)));
+        row.insertCell(4).appendChild(document.createTextNode("$" + parseFloat(e.amount).toFixed(2)));
         row.insertCell(5).appendChild(document.createTextNode(e.submissionDate));
 
         row.insertCell(6).appendChild(document.createTextNode(e.resolutionDate || ""));
@@ -820,7 +820,7 @@ function applyManagementRequestsTable(list, sort, status){
         row.insertCell(1).appendChild(document.createTextNode(e.applicant));
         row.insertCell(2).appendChild(document.createTextNode(statEnum[e.status]));
         row.insertCell(3).appendChild(document.createTextNode(authEnum[e.ticketLevel]));
-        row.insertCell(4).appendChild(document.createTextNode("$" + parseInt(e.amount).toFixed(2)));
+        row.insertCell(4).appendChild(document.createTextNode("$" + parseFloat(e.amount).toFixed(2)));
         row.insertCell(5).appendChild(document.createTextNode(e.submissionDate));
 
         row.insertCell(6).appendChild(document.createTextNode(e.resolutionDate || ""));
@@ -873,7 +873,7 @@ function filterManagementUnopenedRequests(e){
         return;
     }
 
-    applyManagementRequestsTableWithParams(JSON.parse(window.sessionStorage.getItem("userRequests")), true, 0);
+    applyManagementRequestsTable(JSON.parse(window.sessionStorage.getItem("userRequests")), true, 0);
     $('#management-filter-username').trigger("keyup");
 }
 
@@ -884,7 +884,7 @@ function filterManagementPendingRequests(e){
         return;
     }
 
-    applyManagementRequestsTableWithParams(JSON.parse(window.sessionStorage.getItem("userRequests")), true, 1);
+    applyManagementRequestsTable(JSON.parse(window.sessionStorage.getItem("userRequests")), true, 1);
     $('#management-filter-username').trigger("keyup");
 }
 
@@ -895,7 +895,7 @@ function filterManagementResolvedRequests(e){
         return;
     }
 
-    applyManagementRequestsTableWithParams(JSON.parse(window.sessionStorage.getItem("userRequests")), true, 2);
+    applyManagementRequestsTable(JSON.parse(window.sessionStorage.getItem("userRequests")), true, 2);
     $('#management-filter-username').trigger("keyup");
 }
 
@@ -922,6 +922,7 @@ function onManagementRequestsModalExpand(e){
         document.getElementById("management-requests-modal-reject-button").disabled = true;
         document.getElementById("management-requests-modal-approved-button").disabled = true;
         document.getElementById("management-requests-modal-resolution-description").disabled = true;
+        document.getElementById("management-requests-modal-approved").textContent = approvalEnum[request.approved ? 1 : 0];
     }
 
     else{
@@ -929,6 +930,7 @@ function onManagementRequestsModalExpand(e){
         document.getElementById("management-requests-modal-reject-button").disabled = false;
         document.getElementById("management-requests-modal-approved-button").disabled = false;
         document.getElementById("management-requests-modal-resolution-description").disabled = false;
+        document.getElementById("management-requests-modal-approved").textContent = "";
     }
 
     checkStatus(request);

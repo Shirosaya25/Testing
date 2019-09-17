@@ -18,6 +18,7 @@ public class MasterServlet extends DefaultServlet{
 	private static final long serialVersionUID = 1L;
 	private static final RequestHelper requestHelper = new RequestHelper();
 	
+	@Override
 	public void init(ServletConfig config) throws ServletException {
 		
 		PropertyConfigurator.configure("C:\\Users\\micha\\Documents\\Git\\batch-source\\Project1\\src\\main\\resources\\log4j\\log4j.properties");
@@ -27,6 +28,7 @@ public class MasterServlet extends DefaultServlet{
 	/* (non-Javadoc)
 	 * @see org.apache.catalina.servlets.DefaultServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
@@ -55,6 +57,7 @@ public class MasterServlet extends DefaultServlet{
 	/* (non-Javadoc)
 	 * @see org.apache.catalina.servlets.DefaultServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		LoggerUtil.log.info(String.format("%s: %s - Recieved%n", request.getMethod(), request.getRequestURI()));
