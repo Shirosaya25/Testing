@@ -41,21 +41,18 @@ $(document).ready(function(){
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });
-});
-
-$('#management-filter-username').keypress(function(e){
-    if (e.which == 13){
-        e.preventDefault();
-    }
-});
-
-$(document).ready(function(){
   $("#management-filter-employee").on("keyup", function() {
     var value = $(this).val().toLowerCase();
     $("#employee-table-body tr").filter(function() {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });
+});
+
+$('#management-filter-username').keypress(function(e){
+    if (e.which == 13){
+        e.preventDefault();
+    }
 });
 
 $('#management-filter-employee').keypress(function(e){
@@ -207,7 +204,7 @@ function applyAccountInformation(){
     document.getElementById("account-authority").textContent = authEnum[loggedInUser.authority];
 }
 
-function applyRequestTable(list){
+function applyRequestTable(list, sort, status){
 
     let obj = JSON.parse(list);
 
@@ -215,6 +212,11 @@ function applyRequestTable(list){
     let row;
 
     for(let e of obj){
+
+        if(sort && (e.status != status)){
+
+            continue;
+        }
 
         row = table.insertRow();
 
@@ -230,45 +232,6 @@ function applyRequestTable(list){
         
         let atag = document.createElement('a');
         atag.setAttribute('href', "#");
-        atag.setAttribute('class', 'landing-anchor-glyph info-a');
-        atag.setAttribute('data-toggle', 'modal');
-        atag.setAttribute('data-target', '#request-info-modal');
-        atag.setAttribute('onclick', 'onRequestModalExpand(this)');
-
-        row.insertCell(8).appendChild(atag);
-    }
-
-    $('.landing-anchor-glyph').prepend("<span class = 'fas fa-caret-square-down'></span>");
-}
-
-function applyRequestTableWithParam(list, status){
-
-    let obj = JSON.parse(list);
-
-    let table = document.getElementById("request-table-body");
-
-    let row;
-
-    for(let e of obj){
-
-        if(e.status != status){
-
-            continue;
-        }
-
-        row = table.insertRow();
-
-        row.insertCell(0).appendChild(document.createTextNode(e.requestId));
-        row.insertCell(1).appendChild(document.createTextNode(e.applicant));
-        row.insertCell(2).appendChild(document.createTextNode(statEnum[e.status]));
-        row.insertCell(3).appendChild(document.createTextNode(authEnum[e.ticketLevel]));
-        row.insertCell(4).appendChild(document.createTextNode("$" + parseInt(e.amount).toFixed(2)));
-        row.insertCell(5).appendChild(document.createTextNode(e.submissionDate));
-        row.insertCell(6).appendChild(document.createTextNode(e.resolutionDate || ""));
-        row.insertCell(7).appendChild(document.createTextNode(e.resolvedBy || ""));
-
-        let atag = document.createElement('a');
-        atag.setAttribute('href', "#2");
         atag.setAttribute('class', 'landing-anchor-glyph info-a');
         atag.setAttribute('data-toggle', 'modal');
         atag.setAttribute('data-target', '#request-info-modal');
@@ -401,7 +364,7 @@ function filterAllRequests(e){
 
     destroyTable();
 
-    applyRequestTable(window.sessionStorage.getItem("requests"));
+    applyRequestTable(window.sessionStorage.getItem("requests"), false, -1);
 }
 
 function filterUnopenedRequests(e){
@@ -413,7 +376,7 @@ function filterUnopenedRequests(e){
 
     destroyTable();
 
-    applyRequestTableWithParam(window.sessionStorage.getItem("requests"), 0);
+    applyRequestTable(window.sessionStorage.getItem("requests"), true, 0);
 }
 
 function filterPendingRequests(e){
@@ -425,7 +388,7 @@ function filterPendingRequests(e){
 
     destroyTable();
 
-    applyRequestTableWithParam(window.sessionStorage.getItem("requests"), 1);
+    applyRequestTable(window.sessionStorage.getItem("requests"), true, 1);
 }
 
 function filterResolvedRequests(e){
@@ -437,7 +400,7 @@ function filterResolvedRequests(e){
 
     destroyTable();
 
-    applyRequestTableWithParam(window.sessionStorage.getItem("requests"), 2);
+    applyRequestTable(window.sessionStorage.getItem("requests"), true, 2);
 }
 
 function destroyTable(){
@@ -836,7 +799,7 @@ function getManagementRequests(callback){
     xhr.send();
 }
 
-function applyManagementRequestsTable(list){
+function applyManagementRequestsTable(list, sort, status){
 
     destroyManagementRequestsTable();
 
@@ -846,42 +809,7 @@ function applyManagementRequestsTable(list){
 
     for(let e of list){
 
-        row = table.insertRow();
-
-        row.insertCell(0).appendChild(document.createTextNode(e.requestId));
-        row.insertCell(1).appendChild(document.createTextNode(e.applicant));
-        row.insertCell(2).appendChild(document.createTextNode(statEnum[e.status]));
-        row.insertCell(3).appendChild(document.createTextNode(authEnum[e.ticketLevel]));
-        row.insertCell(4).appendChild(document.createTextNode("$" + parseInt(e.amount).toFixed(2)));
-        row.insertCell(5).appendChild(document.createTextNode(e.submissionDate));
-
-        row.insertCell(6).appendChild(document.createTextNode(e.resolutionDate || ""));
-        row.insertCell(7).appendChild(document.createTextNode(e.resolvedBy || ""));
-        
-        atag = document.createElement('a');
-        atag.setAttribute('href', "#");
-        atag.setAttribute('class', 'management-anchor-glyph info-a');
-        atag.setAttribute('data-toggle', 'modal');
-        atag.setAttribute('data-target', '#management-requests-modal');
-        atag.setAttribute('onclick', 'onManagementRequestsModalExpand(this)');
-
-        row.insertCell(8).appendChild(atag);
-    }
-
-    $('.management-anchor-glyph').prepend("<span class = 'fas fa-caret-square-down'></span>");
-}
-
-function applyManagementRequestsTableWithParams(list, status, str){
-
-    destroyManagementRequestsTable();
-
-    let table = document.getElementById("management-requests-table-body");
-    let row;
-    let atag;
-
-    for(let e of list){
-
-        if(e.status != status){
+        if(sort && (e.status != status)){
 
             continue;
         }
@@ -934,7 +862,7 @@ function filterManagementAllRequests(e){
         return;
     }
 
-    applyManagementRequestsTable(JSON.parse(window.sessionStorage.getItem("userRequests")));
+    applyManagementRequestsTable(JSON.parse(window.sessionStorage.getItem("userRequests")), false, -1);
     $('#management-filter-username').trigger("keyup");
 }
 
@@ -945,7 +873,7 @@ function filterManagementUnopenedRequests(e){
         return;
     }
 
-    applyManagementRequestsTableWithParams(JSON.parse(window.sessionStorage.getItem("userRequests")), 0);
+    applyManagementRequestsTableWithParams(JSON.parse(window.sessionStorage.getItem("userRequests")), true, 0);
     $('#management-filter-username').trigger("keyup");
 }
 
@@ -956,7 +884,7 @@ function filterManagementPendingRequests(e){
         return;
     }
 
-    applyManagementRequestsTableWithParams(JSON.parse(window.sessionStorage.getItem("userRequests")), 1);
+    applyManagementRequestsTableWithParams(JSON.parse(window.sessionStorage.getItem("userRequests")), true, 1);
     $('#management-filter-username').trigger("keyup");
 }
 
@@ -967,7 +895,7 @@ function filterManagementResolvedRequests(e){
         return;
     }
 
-    applyManagementRequestsTableWithParams(JSON.parse(window.sessionStorage.getItem("userRequests")), 2);
+    applyManagementRequestsTableWithParams(JSON.parse(window.sessionStorage.getItem("userRequests")), true, 2);
     $('#management-filter-username').trigger("keyup");
 }
 
