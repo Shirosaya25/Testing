@@ -49,7 +49,7 @@ public class Employee {
 	
 	public boolean login(String unencryptedPassword) {
 		
-		return this.password.equals(EncryptionUtil.encrypt(unencryptedPassword));
+		return EncryptionUtil.decrypt(this.password).equals(unencryptedPassword);
 	}
 	
 	public boolean logout() {

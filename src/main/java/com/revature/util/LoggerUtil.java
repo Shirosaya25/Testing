@@ -6,7 +6,7 @@ import com.revature.controller.MasterServlet;
 
 public class LoggerUtil {
 
-	public static Logger log = Logger.getLogger(MasterServlet.class);
+	public static final Logger log = Logger.getLogger(MasterServlet.class);
 	
 	private LoggerUtil() {
 		

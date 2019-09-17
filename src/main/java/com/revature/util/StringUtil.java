@@ -1,7 +1,5 @@
 package com.revature.util;
 
-import java.util.Random;
-
 public class StringUtil {
 	
 	private static final String EMAIL_REGEX = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$";
@@ -66,13 +64,11 @@ public class StringUtil {
 	    int rightLimit = 122;
 	    int targetStringLength = 10;
 	    
-	    Random random = new Random();
-	    
 	    StringBuilder buffer = new StringBuilder(targetStringLength);
 	    
 	    for (int i = 0; i < targetStringLength; i++) {
 	    	
-	        int randomLimitedInt = leftLimit + (int)(random.nextFloat() * (rightLimit - leftLimit + 1));
+	        int randomLimitedInt = leftLimit + (int)(RandomUtil.RANDOM.nextFloat() * (rightLimit - leftLimit + 1));
 	        buffer.append((char) randomLimitedInt);
 	    }
 		

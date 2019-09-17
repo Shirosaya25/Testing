@@ -31,7 +31,6 @@ public class MasterServlet extends DefaultServlet{
 		
 		try {
 			
-			LoggerUtil.log.info(request.getMethod() + " : " + request.getRequestURI());
 			LoggerUtil.log.info(String.format("%s: %s - Recieved%n", request.getMethod(), request.getRequestURI()));
 			
 			String path = request.getRequestURI().substring(request.getContextPath().length());
@@ -58,7 +57,6 @@ public class MasterServlet extends DefaultServlet{
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		LoggerUtil.log.info(request.getMethod() + " : " + request.getRequestURI());
 		LoggerUtil.log.info(String.format("%s: %s - Recieved%n", request.getMethod(), request.getRequestURI()));
 		
 		String path = request.getRequestURI().substring(request.getContextPath().length());

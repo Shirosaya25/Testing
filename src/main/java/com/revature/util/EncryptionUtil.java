@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Base64;
  
 import javax.crypto.Cipher;
+import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
  
 public class EncryptionUtil {
@@ -54,15 +55,24 @@ public class EncryptionUtil {
      * @param strToEncrypt
      * @return AES 256 encrypted string
      */
-    public static String encrypt(String strToEncrypt) {
+    public static String encrypt(String cleartext) {
     	
         try {
         	
+        	byte[] cleartextBytes = cleartext.getBytes("UTF-8");
+        	
             setKey(AES_KEY);
-            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+            Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
             cipher.init(Cipher.ENCRYPT_MODE, secretKey);
             
-            return Base64.getEncoder().encodeToString(cipher.doFinal(strToEncrypt.getBytes("UTF-8")));
+            byte[] encryptedBytes = cipher.doFinal(cleartextBytes);
+            
+            byte[] iv = cipher.getIV();
+            byte[] message = new byte[12 + cleartextBytes.length + 16];
+            System.arraycopy(iv, 0, message, 0, 12);
+            System.arraycopy(encryptedBytes, 0, message, 12, encryptedBytes.length);
+            
+            return Base64.getEncoder().encodeToString(message);
         }
         
         catch (Exception e) {
@@ -78,17 +88,20 @@ public class EncryptionUtil {
      * @param strToDecrypt
      * @return decrypted String
      */
-    public static String decrypt(String strToDecrypt) {
+    public static String decrypt(String encryptedText) {
     	
-    	if(strToDecrypt == null) return null;
+    	if(encryptedText == null) return null;
     	
         try {
         	
+        	byte[] encryptedBytes = Base64.getDecoder().decode(encryptedText.getBytes("UTF-8"));
+        	
             setKey(AES_KEY);
-            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING");
-            cipher.init(Cipher.DECRYPT_MODE, secretKey);
+            Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+            GCMParameterSpec params = new GCMParameterSpec(128, encryptedBytes, 0, 12);
+            cipher.init(Cipher.DECRYPT_MODE, secretKey, params);
             
-            return new String(cipher.doFinal(Base64.getDecoder().decode(strToDecrypt.getBytes("UTF-8"))));
+            return new String(cipher.doFinal(encryptedBytes, 12, encryptedBytes.length - 12), "UTF-8");
         }
         
         catch (Exception e) {
