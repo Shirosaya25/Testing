@@ -1,0 +1,63 @@
+.login-form{
+
+    margin-bottom: 25px;
+}
+
+.login-header{
+
+    margin-bottom: 15px;
+}
+
+.login-error{
+
+    margin-bottom: 5px;
+}
+
+.landing-div{
+
+    background-color: #FFFFFF;
+}
+
+.landing-navbar{
+
+    background-color: #F2F2F2;
+    border-right-width: 5px!important;
+    border-right-color: #000000!important;
+}
+
+.landing-navbar-head{
+
+    border-width: 4px;
+    border-color: #000000;
+}
+
+.landing-navbar-item{
+
+    background-color: #F2F2F2;
+}
+
+.table-scrollbar{
+    position: relative;
+    height: 600px;
+    overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+    display: block;
+    margin: auto!important;
+    width: 80% !important; 
+}
+
+.info-a{
+
+    text-align: center;
+}
+
+.table-fixed-header thead th {
+
+    position: sticky!important;
+    top: 0;
+    background: #fff!important;
+}
+
+html, body {margin: 0; height: 100%; overflow: hidden}

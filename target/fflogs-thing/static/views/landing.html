@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <title>Project 1</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/Project1/static/css/project1.css">
+
+    <link rel="icon" href="https://discordemoji.com/assets/emoji/ConcernedFroge.png">
+    <link rel="shortcut icon" href="#" />
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+</head>
+<body id = "landing-body" hidden>
+
+    <div class="modal fade" id="employee-password-change-modal" tabindex="-1" role="dialog" aria-labelledby="password-aria-label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title lead">Change Password</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <input id = "landing-new-password-current" type = "password" placeholder = "Current Password" class = "form-control" style = "margin-bottom: 20px">
+                    <input id = "landing-new-password-new" type = "password" placeholder = "New Password" class = "form-control" style = "margin-bottom: 5px">
+                    <input id = "landing-new-password-confirm" type = "password" placeholder = "Confirm New Password" class = "form-control" style = "margin-bottom: 5px">
+
+                    <span id = "landing-new-password-error-message" class = "text-danger" style = "margin-left: 13px;" hidden></span>
+                    <span id = "landing-new-password-success" class = "text-info" style = "margin-left: 13px;" hidden>Password Successfully Changed</span>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info" id = "password-change-button" onclick = "onPasswordChangeClick()">Save changes</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="request-info-modal" tabindex="-1" role="dialog" aria-labelledby="request-aria-label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title lead">Reimbursement Request Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class = row>
+                        <div class="col">
+                            <h4 class="lead">Approved: </h4>
+                        </div>
+                        <div class="col">
+                            <h4 class="lead" id="request-modal-approved"></h4>
+                        </div>
+                    </div>
+
+                    <div class = row>
+                        <div class="col">
+                            <h4 class="lead">Request Id#: </h4>
+                        </div>
+                        <div class="col">
+                            <h4 class="lead" id="request-modal-id"></h4>
+                        </div>
+                    </div>
+
+                    <div class = row>
+                        <div class="col">
+                            <h4 class="lead">Applicant: </h4>
+                        </div>
+                        <div class="col">
+                            <h4 class="lead" id="request-modal-applicant"></h4>
+                        </div>
+                    </div>
+
+                    <div class = row>
+                        <div class="col">
+                            <h4 class="lead">Status: </h4>
+                        </div>
+                        <div class="col">
+                            <h4 class="lead" id="request-modal-status"></h4>
+                        </div>
+                    </div>
+
+                    <div class = row>
+                        <div class="col">
+                            <h4 class="lead">Ticket Level: </h4>
+                        </div>
+                        <div class="col">
+                            <h4 class="lead" id="request-modal-authority"></h4>
+                        </div>
+                    </div>
+
+                    <div class = row>
+                        <div class="col">
+                            <h4 class="lead">Amount: </h4>
+                        </div>
+                        <div class="col">
+                            <h4 class="lead" id="request-modal-amount"></h4>
+                        </div>
+                    </div>
+
+                    <div class = row>
+                        <div class="col">
+                            <h4 class="lead">Submission Date: </h4>
+                        </div>
+                        <div class="col">
+                            <h4 class="lead" id="request-modal-submission-date"></h4>
+                        </div>
+                    </div>
+
+                    <div class = row>
+                        <div class="col">
+                            <h4 class="lead">Resolution Date: </h4>
+                        </div>
+                        <div class="col">
+                            <h4 class="lead" id="request-modal-resolution-date"></h4>
+                        </div>
+                    </div>
+
+                    <div class = row>
+                        <div class="col">
+                            <h4 class="lead">Resolved By: </h4>
+                        </div>
+                        <div class="col">
+                            <h4 class="lead" id="request-modal-resolved-by"></h4>
+                        </div>
+                    </div>
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1" class = "lead">Description</label>
+                            <textarea class="form-control" id="request-modal-description" rows="3"></textarea>
+                            <small class="form-text text-muted">Optional - 500 Character Limit</small>
+                        </div>
+                    </form>
+
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1" class = "lead">Reference</label>
+                            <textarea class="form-control" id="request-modal-reference" rows="3"></textarea>
+                            <small class="form-text text-muted">Optional - 500 Character Limit</small>
+                        </div>
+                    </form>
+
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1" class = "lead">Resolution Description</label>
+                            <textarea class="form-control" id="request-modal-resolution-description" rows="3" disabled></textarea>
+                        </div>
+                    </form>
+
+                    <span id = "landing-update-request-error-message" class = "text-danger" style = "margin-left: 13px;" hidden>Request Update Failed</span>
+                    <span id = "landing-update-request-success" class = "text-info" style = "margin-left: 13px;" hidden>Request Successfully Updated</span>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info" onclick="onUpdateRequestClick()" id="request-update-button">Update</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="request-new-modal" tabindex="-1" role="dialog" aria-labelledby="request-aria-label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title lead">New Reimbursement Request</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <form>
+
+                        <div class = "form-group">
+                            <label class="lead">Amount</label>
+                            <input type="number" min="0" step="0.01" class="form-control" id="landing-request-new-amount" aria-describedby="emailHelp" placeholder="Enter reimbursement amount">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1" class = "lead">Description</label>
+                            <textarea class="form-control" id="request-new-description" rows="3"></textarea>
+                            <small class="form-text text-muted">Optional - 500 Character Limit</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1" class = "lead">Reference</label>
+                            <textarea class="form-control" id="request-new-reference" rows="3"></textarea>
+                            <small class="form-text text-muted">Optional - 500 Character Limit</small>
+                        </div>
+                    </form>
+
+                    <span id = "landing-request-new-error-message" class = "text-danger" style = "margin-left: 13px;" hidden>Request Submission Failed</span>
+                    <span id = "landing-request-new-success" class = "text-info" style = "margin-left: 13px;" hidden>Request Submitted</span>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info" onclick="onNewRequestClick();" id="request-new-button">Submit</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="new-employee-modal" tabindex="-1" role="dialog" aria-labelledby="request-aria-label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title lead">New Employee</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <form>
+
+                        <div class = "form-group">
+                            <label class="lead">First Name</label>
+                            <input type="text" class="form-control" id="new-employee-modal-firstname" aria-describedby="emailHelp" placeholder="">
+                        </div>
+
+                        <div class = "form-group">
+                            <label class="lead">Last Name</label>
+                            <input type="text" class="form-control" id="new-employee-modal-lastname" aria-describedby="emailHelp" placeholder="">
+                        </div>
+
+                        <div class = "form-group">
+                            <label class="lead">Username</label>
+                            <input type="text" class="form-control" id="new-employee-modal-username" aria-describedby="emailHelp" placeholder="">
+                        </div>
+
+                        <div class = "form-group">
+                            <label class="lead">Password</label>
+                            <input type="text" class="form-control" id="new-employee-modal-password" aria-describedby="emailHelp" placeholder="">
+                        </div>
+
+                        <div class = "form-group">
+                            <label class="lead">Email</label>
+                            <input type="email" class="form-control" id="new-employee-modal-email" aria-describedby="emailHelp" placeholder="something@mail.com">
+                        </div>
+
+                        <div class="form-group" id = "new-employee-modal-authority-list">
+                            <label for="exampleFormControlSelect1" class = "lead">Authorization Level</label>
+                            <select class="form-control" id="new-employee-modal-authority">
+                            </select>
+                        </div>
+                    </form>
+
+                    <span id = "new-employee-modal-error-message" class = "text-danger" style = "margin-left: 13px;" hidden>Failed to create a new Employee with given fields</span>
+                    <span id = "new-employee-modal-success" class = "text-info" style = "margin-left: 13px;" hidden>Employee successfully entered</span>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info" onclick="onNewEmployeeClick();" id="new-employee-modal-button">Submit</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="management-requests-modal" tabindex="-1" role="dialog" aria-labelledby="request-aria-label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title lead">Reimbursement Request Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class = row>
+                        <div class="col">
+                            <h4 class="lead">Approved: </h4>
+                        </div>
+                        <div class="col">
+                            <h4 class="lead" id="management-requests-modal-approved"></h4>
+                        </div>
+                    </div>
+
+                    <div class = row>
+                        <div class="col">
+                            <h4 class="lead">Request Id#: </h4>
+                        </div>
+                        <div class="col">
+                            <h4 class="lead" id="management-requests-modal-id"></h4>
+                        </div>
+                    </div>
+
+                    <div class = row>
+                        <div class="col">
+                            <h4 class="lead">Applicant: </h4>
+                        </div>
+                        <div class="col">
+                            <h4 class="lead" id="management-requests-modal-applicant"></h4>
+                        </div>
+                    </div>
+
+                    <div class = row>
+                        <div class="col">
+                            <h4 class="lead">Status: </h4>
+                        </div>
+                        <div class="col">
+                            <h4 class="lead" id="management-requests-modal-status"></h4>
+                        </div>
+                    </div>
+
+                    <div class = row>
+                        <div class="col">
+                            <h4 class="lead">Ticket Level: </h4>
+                        </div>
+                        <div class="col">
+                            <h4 class="lead" id="management-requests-modal-authority"></h4>
+                        </div>
+                    </div>
+
+                    <div class = row>
+                        <div class="col">
+                            <h4 class="lead">Amount: </h4>
+                        </div>
+                        <div class="col">
+                            <h4 class="lead" id="management-requests-modal-amount"></h4>
+                        </div>
+                    </div>
+
+                    <div class = row>
+                        <div class="col">
+                            <h4 class="lead">Submission Date: </h4>
+                        </div>
+                        <div class="col">
+                            <h4 class="lead" id="management-requests-modal-submission-date"></h4>
+                        </div>
+                    </div>
+
+                    <div class = row>
+                        <div class="col">
+                            <h4 class="lead">Resolution Date: </h4>
+                        </div>
+                        <div class="col">
+                            <h4 class="lead" id="management-requests-modal-resolution-date"></h4>
+                        </div>
+                    </div>
+
+                    <div class = row>
+                        <div class="col">
+                            <h4 class="lead">Resolved By: </h4>
+                        </div>
+                        <div class="col">
+                            <h4 class="lead" id="management-requests-modal-resolved-by"></h4>
+                        </div>
+                    </div>
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1" class = "lead">Description</label>
+                            <textarea class="form-control" id="management-requests-modal-description" rows="3" disabled></textarea>
+                        </div>
+                    </form>
+
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1" class = "lead">Reference</label>
+                            <textarea class="form-control" id="management-requests-modal-reference" rows="3" disabled></textarea>
+                        </div>
+                    </form>
+
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1" class = "lead">Resolution Description</label>
+                            <textarea class="form-control" id="management-requests-modal-resolution-description" rows="3"></textarea>
+                            <small class="form-text text-muted">Optional - 500 Character Limit</small>
+                        </div>
+                    </form>
+
+                    <span id = "management-requests-modal-error-message" class = "text-danger" style = "margin-left: 13px;" hidden>Request Update Failed</span>
+                    <span id = "management-requests-modal-success" class = "text-info" style = "margin-left: 13px;" hidden>Request Successfully Updated</span>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" onclick="onManagementUpdateRequestClick(false)" id="management-requests-modal-reject-button">Reject</button>
+                    <button type="button" class="btn btn-info" onclick="onManagementUpdateRequestClick(true)" id="management-requests-modal-approved-button">Approve</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid bg-white min-vh-100 min-vw-100">
+        <div class = "row vh-100">
+
+            <div class="col-2 landing-navbar">
+
+                <nav class="navbar navbar-light" aria-labelledby="general-naviagation" id = "landing-side-nav">
+
+                    <div class="navbar-header">
+
+                        <a class="navbar-brand landing-navbar-head">
+                        Navigation
+                        </a>
+
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="navbarText">
+                        <ul class="nav navbar-nav">
+
+                            <li class="nav-item active">
+                                <a class="nav-link" href = "#" onclick = "onNavbarEntryClick(this); loadHome();" id = "navbar-home">Home<span class="sr-only">(current)</span></a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href = "#" onclick = "logout();" id = "navbar-home">Logout<span class="sr-only">(current)</span></a>
+                            </li>
+
+                            <li class = "navbar-item">
+                                <span class="navbar-text">
+                                Employee
+                                </span>
+                            </li>
+
+
+                            <ul style = "list-style-type: none;">
+
+                                <li class="nav-item">
+                                    <a onclick = "onNavbarEntryClick(this); loadMyAccount();" href = "#" class="nav-link" id="navbar-my-account">
+                                    MyAccount
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a onclick = "onNavbarEntryClickGetMyAccount(); loadMyAccount();" href = "#" data-toggle="modal" data-target="#employee-password-change-modal" class="nav-link" id="navbar-change-password">
+                                    Change Password
+                                    </a>
+                                </li>
+
+                                <li class="nav-item" hidden>
+                                <a class="nav-link">Placeholder #1</a>
+                                </li>
+
+                            </ul>
+
+                            <li class = "navbar-item">
+                                <span class="navbar-text">
+                                Reiumbursement
+                                </span>
+                            </li>
+
+                            <ul style = "list-style-type: none;">
+
+                                <li class="nav-item">
+                                    <a onclick = "onNavbarEntryClick(this); loadMyRequests();" href = "#" class="nav-link" id="navbar-my-requests">
+                                    MyRequests
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                <a onclick="onNavbarEntryClickGetMyRequests(); loadMyRequests();" class="nav-link" data-toggle="modal" data-target="#request-new-modal" href = "#" id="navbar-new-request">Submit New Request</a>
+                                </li>
+
+                            </ul>
+
+                            <div id="landing-management" hidden>
+
+                                <li class = "navbar-item">
+                                    <span class="navbar-text">
+                                    Management
+                                    </span>
+                                </li>
+
+                                <ul style = "list-style-type: none;">
+
+                                    <li class="nav-item">
+                                        <a onclick = "onNavbarEntryClick(this); loadManagementRequests()" href = "#" class="nav-link" id="navbar-management-requests">
+                                        Review Requests
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a onclick = "onNavbarEntryClick(this); loadManagementEmployees();" href = "#" class="nav-link" id="navbar-management-employees">
+                                        View Employees
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                    <a href = "#" onclick="onNavbarEntryClickGetManagementEmployees(); loadManagementEmployees()" class="nav-link" data-toggle="modal" data-target="#new-employee-modal" id=navbar-new-employee>Create Employee</a>
+                                    </li>
+
+                                </ul>
+
+                            </div>
+
+                        </ul>
+                    </div>
+                </nav>
+
+            </div>
+
+
+            <div class = "col-10 p-0 vh-100">
+
+                <div class = "jumbotron jumbotron-fluid landing-div" id = "landing-home-div">
+                    <div class="text-center m-0 d-flex flex-column">
+                        <h1 class = "text-dark">Landing Home Page</h1>
+                        <h1 class = "lead text-dark" id="landing-welcome-user"></h1>
+                    </div>
+                </div>
+
+                <div class = "landing-div" id = "landing-my-account-div" hidden>
+
+                    <div class = "jumbotron jumbotron-fluid bg-white">
+                        <div class="text-center m-0 d-flex flex-column">
+                            <h1 class = "text-dark">Account Information</h1>
+                            <h4 class = "lead text-dark" id="landing-account-user"></h4>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center;">
+                        <div class = "row">
+                            <h5 class = "col-2 text-dark lead">Username:</h5>
+                            <h5 class = "col-2 text-dark lead" id = "account-username"></h5>
+                        </div>
+                        <div class = "row">
+                            <h5 class = "col-2 text-dark lead">Password:</h5>
+                            <h5 class = "col-2 text-dark lead" id = "account-password"></h5>
+                        </div>
+                        <div class = "row">
+                            <h5 class = "col-2 text-dark lead">First Name</h5>
+                            <h5 class = "col-2 text-dark lead" id = "account-firstname"></h5>
+                        </div>
+                        <div class = "row">
+                            <h5 class = "col-2 text-dark lead">Last Name:</h5>
+                            <h5 class = "col-2 text-dark lead" id = "account-lastname"></h5>
+                        </div>
+                        <div class = "row">
+                            <h5 class = "col-2 text-dark lead">Email</h5>
+                            <h5 class = "col-2 text-dark lead" id = "account-email"></h5>
+                        </div>
+                        <div class = "row">
+                            <h5 class = "col-2 text-dark lead">Authorization</h5>
+                            <h5 class = "col-2 text-dark lead" id = "account-authority"></h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "landing-div" id = "landing-my-requests-div" hidden>
+
+                    <div class = "jumbotron jumbotron-fluid bg-white">
+                        <div class="text-center m-0 d-flex flex-column">
+                            <h1 class = "text-dark">Request Information</h1>
+                            <h4 class = "lead text-dark" id="landing-requests-user"></h4>
+                        </div>
+                    </div>
+
+                    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #F2F2F2!important; margin: auto; width:80%!important;" id="landing-filter-nav" aria-labelleb-by = "landing-filter-nav-aria">
+                        <a class="navbar-brand">Filter</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                                <ul class="navbar-nav">
+
+                                    <li class="nav-item active">
+                                    <a id = "filter-all" class="nav-link" onclick ="filterAllRequests(this); onFilterClick(this);" href = "#">All<span class="sr-only">(current)</span></a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                    <a class="nav-link" onclick ="filterUnopenedRequests(this); onFilterClick(this);" href = "#">Unopened</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                    <a class="nav-link" onclick ="filterPendingRequests(this); onFilterClick(this);" href = "#">Pending</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                    <a class="nav-link" onclick ="filterResolvedRequests(this); onFilterClick(this);" href = "#">Resolved</a>
+                                    </li>
+
+                                </ul>
+                        </div>
+                    </nav>
+
+                    <div class = "row m-0">
+
+                        <div class = "table-wrapper-scroll-y table-scrollbar">
+
+                            <table class = "table table-striped table-bordered m-0 table-hover" aria-describedby = "requests-user">
+
+                                <thead>
+                                    <tr>
+                                        <th id = "requests-body-id" style = "width: 4%">ID#</th>
+                                        <th id = "requests-body-applicant" style = "width: 10%">Applicant</th>
+                                        <th id = "requests-body-status" style = "width: 10%">Status</th>
+                                        <th id = "requests-body-authority" style = "width: 12%">Ticket Level</th>
+                                        <th id = "requests-body-amount" style = "width: 7%">Amount</th>
+                                        <th id = "requests-body-submission-date" style = "width: 15%">Submission Date</th>
+                                        <th id = "requests-body-resolution-date" style = "width: 15%">Resolution Date</th>
+                                        <th id = "requests-body-resolved-by" style = "width: 15%">Resolved By</th>
+                                        <th id = "requests-body-info" style = "width: 4%">Info</th>
+                                    </tr>
+                                </thead>
+                                <tbody id = "request-table-body">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "landing-div" id = "landing-management-requests" hidden>
+
+                    <div class = "jumbotron jumbotron-fluid bg-white">
+                        <div class="text-center m-0 d-flex flex-column">
+                            <h1 class = "text-dark">Employee Requests</h1>
+                            <h4 class = "lead text-dark" id="management-requests-subheader"></h4>
+                        </div>
+                    </div>
+
+                    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #F2F2F2!important; margin: auto; width:80%!important;" id="management-filter-nav" aria-labelled-by="management-filter-aria">
+
+                        <a class="navbar-brand">Filter</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#managementNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="managementNavDropdown">
+                            <ul class="navbar-nav">
+
+                                <li class="nav-item active">
+                                <a id = "filter-all" class="nav-link" onclick ="onManagementFilterClick(this); filterManagementAllRequests();" href = "#">All<span class="sr-only">(current)</span></a>
+                                </li>
+
+                                <li class="nav-item">
+                                <a class="nav-link" onclick ="onManagementFilterClick(this); filterManagementUnopenedRequests();" href = "#">Unopened</a>
+                                </li>
+
+                                <li class="nav-item">
+                                <a class="nav-link" onclick ="onManagementFilterClick(this); filterManagementPendingRequests();" href = "#">Pending</a>
+                                </li>
+
+                                <li class="nav-item">
+                                <a class="nav-link" onclick ="onManagementFilterClick(this); filterManagementResolvedRequests();" href = "#">Resolved</a>
+                                </li>
+
+                            </ul>
+                        </div>
+
+                        <form class="form-inline">
+
+                            <div class="input-group">
+
+                                <div class="input-group-prepend">
+
+                                <span class="input-group-text" id="basic-addon1">@</span>
+                                
+                                </div>
+
+                                <input type="text" class="form-control" placeholder="Search..." aria-label="Username" aria-describedby="basic-addon1" id="management-filter-username">
+
+                            </div>
+                        </form>
+
+                    </nav>
+
+                    <div class = "row m-0">
+
+                        <div class = "table-wrapper-scroll-y table-scrollbar">
+
+                            <table class = "table table-striped table-bordered m-0 table-hover" aria-describedby = "management-requests-aria">
+
+                                <thead>
+                                    <tr>
+                                        <th id = "management-requests-body-id" style = "width: 4%">ID#</th>
+                                        <th id = "management-requests-body-applicant" style = "width: 10%">Applicant</th>
+                                        <th id = "management-requests-body-status" style = "width: 10%">Status</th>
+                                        <th id = "management-requests-body-authority" style = "width: 12%">Ticket Level</th>
+                                        <th id = "management-requests-body-amount" style = "width: 7%">Amount</th>
+                                        <th id = "management-requests-body-submission-date" style = "width: 15%">Submission Date</th>
+                                        <th id = "management-requests-body-resolution-date" style = "width: 15%">Resolution Date</th>
+                                        <th id = "management-requests-body-resolved-by" style = "width: 15%">Resolved By</th>
+                                        <th id = "management-requests-body-info" style = "width: 4%">Info</th>
+                                    </tr>
+                                </thead>
+                                <tbody id = "management-requests-table-body">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class = "landing-div" id = "landing-management-employees" hidden>
+
+                    <div class = "jumbotron jumbotron-fluid bg-white">
+                        <div class="text-center m-0 d-flex flex-column">
+                            <h1 class = "text-dark">Employee Directory</h1>
+                            <h4 class = "lead text-dark" id="management-employee-directory-subheader"></h4>
+                        </div>
+                    </div>
+
+                    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #F2F2F2!important; margin: auto; width:80%!important;" id="management-filter-employee-nav" aria-labelled-by="management-filter-aria">
+
+                        <a class="navbar-brand">Employees</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#managementNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse">
+                        </div>
+
+                        <form class="form-inline">
+
+                            <div class="input-group">
+
+                                <div class="input-group-prepend">
+
+                                <span class="input-group-text" id="basic-addon1">@</span>
+                                
+                                </div>
+
+                                <input type="text" class="form-control" placeholder="Search..." aria-label="Username" aria-describedby="basic-addon1" id="management-filter-employee">
+
+                            </div>
+                        </form>
+
+                    </nav>
+
+                    <div class = "row m-0">
+
+                        <div class = "table-wrapper-scroll-y table-scrollbar">
+
+                            <table class = "table table-striped table-bordered m-0 table-hover" aria-describedby = "management-employee-table-aria">
+
+                                <thead>
+                                    <tr>
+                                        <th id="management-employee-body-firstname" style = "width: 12%">First Name</th>
+                                        <th id="management-employee-body-lastname" style = "width: 12%">Last Name</th>
+                                        <th id="management-employee-body-email" style = "width: 12%">Email</th>
+                                        <th id="management-employee-body-authority" style = "width: 12%">Authorization</th>
+                                        <th id="management-employee-body-username" style = "width: 12%">Username</th>
+                                    </tr>
+                                </thead>
+                                <tbody id = "employee-table-body">
+                                </tbody>
+                            </table>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script type="text/javascript" src = "/Project1/static/scripts/landingPage.js"></script>
+
+</body>
